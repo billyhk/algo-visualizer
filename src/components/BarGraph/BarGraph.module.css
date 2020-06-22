@@ -1,0 +1,7 @@
+.BarGraph {
+   height: 100%  ;
+   display: flex;
+   width: 100%;
+   align-items: baseline;
+   position: relative;
+}
