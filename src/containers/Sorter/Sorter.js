@@ -7,15 +7,13 @@ const Sorter = (props) => {
    useEffect(() => {
       let newArray = [];
       for (let i = 0; i < arraySize; i++) {
-         newArray.push(Math.floor(arraySize * Math.random()))
+         newArray.push(Math.floor(Math.random() * (arraySize - 4)) + 5)
          
       }
       setArray(newArray)
    }, [])
 
    const setNewArrayHandler = () => {
-
-   }
 
    return (
       <div>
