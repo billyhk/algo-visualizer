@@ -46,63 +46,57 @@ export const bubbleSort = array => {
 
 export const mergeSort = array => {
 	return dispatch => {
-		let copy = array.slice();
-      let timeOutMultiplier = 0
-      mSort(copy, 0, copy.length - 1)
+		let main = array.slice();
+		let aux = array.slice();
+		const animations = [];
+		mergeSortHelper(main, 0, main.length - 1, aux, animations);
+		let timeOutMultiplier = 0;
 
-		function mSort(items, start, end) {
-			if (start === end) return;
-			const middle = Math.floor((start + end) / 2);
-			mSort(items, start, middle);
-			mSort(items, middle, end);
-			merge(items, start, middle, end);
-		}
-
-		function merge(items, start, middle, end) {
-			let main = start;
-			let i = start;
-			let j = middle + 1;
-
-			while (i <= middle && j <= end) {
-				if (items[i] < items[k]) {
-					let replaceTimer = setTimeout(() => {
-						dispatch(replaceValue(main, items[i]));
-						clearTimeout(replaceTimer);
-               }, 100 + 20 * timeOutMultiplier);
-               main++;
-               i++;
-               timeOutMultiplier++
-				} else {
-               let replaceTimer = setTimeout(() => {
-						dispatch(replaceValue(main, items[j]));
-						clearTimeout(replaceTimer);
-               }, 100 + 20 * timeOutMultiplier);
-               main++;
-               j++;
-               timeOutMultiplier++
-            }
-         }
-         while (i <= middle) {
-            let replaceTimer = setTimeout(() => {
-               dispatch(replaceValue(main, items[i]));
-               clearTimeout(replaceTimer);
-            }, 100 + 20 * timeOutMultiplier);
-            main++;
-            i++;
-            timeOutMultiplier++
-         }
-         while (j <= end) {
-            let replaceTimer = setTimeout(() => {
-               dispatch(replaceValue(main, items[j]));
-               clearTimeout(replaceTimer);
-            }, 100 + 20 * timeOutMultiplier);
-            main++;
-            j++;
-            timeOutMultiplier++
-         }
+		for (let i = 0; i < animations.length; i++) {
+			let [a, b] = animations[i];
+			let swapTimer = setTimeout(() => {
+				dispatch(replaceValue(a, b));
+				clearTimeout(swapTimer);
+			}, 100 + 20 * timeOutMultiplier);
+			timeOutMultiplier++;
 		}
 	};
 };
+
+function mergeSortHelper(mainArray, startIdx, endIdx, auxiliaryArray, animations) {
+	if (startIdx === endIdx) return;
+	const middleIdx = Math.floor((startIdx + endIdx) / 2);
+	mergeSortHelper(auxiliaryArray, startIdx, middleIdx, mainArray, animations);
+	mergeSortHelper(auxiliaryArray, middleIdx + 1, endIdx, mainArray, animations);
+	doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray, animations);
+}
+
+function doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray, animations) {
+	let k = startIdx;
+	let i = startIdx;
+	let j = middleIdx + 1;
+	while (i <= middleIdx && j <= endIdx) {
+
+		if (auxiliaryArray[i] <= auxiliaryArray[j]) {
+			animations.push([k, auxiliaryArray[i]]);
+			mainArray[k++] = auxiliaryArray[i++];
+		} else {
+			animations.push([k, auxiliaryArray[j]]);
+			mainArray[k++] = auxiliaryArray[j++];
+		}
+	}
+	while (i <= middleIdx) {
+
+		animations.push([k, auxiliaryArray[i]]);
+		mainArray[k++] = auxiliaryArray[i++];
+	}
+	while (j <= endIdx) {
+
+
+		animations.push([k, auxiliaryArray[j]]);
+		mainArray[k++] = auxiliaryArray[j++];
+	}
+}
 
 // export const quickSort = array => {
 // 	return dispatch => {
