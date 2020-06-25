@@ -3,7 +3,9 @@ import * as actionTypes from '../actions/actionTypes'
 const initialState = {
    array: [],
    arraySize: 50,
-   active: []
+   active: [],
+   sorting: false,
+   animationSpeed: 15
 }
 
 const setNewArray = (state, action) => {

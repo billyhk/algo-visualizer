@@ -1,1 +1,1 @@
-export { setNewArray, bubbleSort, mergeSort } from './sorterActions'
+export { setNewArray, playSortingAnimation } from './sorterActions'
