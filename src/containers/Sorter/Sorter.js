@@ -1,50 +1,46 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions";
 import BarGraph from "../../components/BarGraph/BarGraph";
+import classes from "./Sorter.module.css";
+import { act } from "react-dom/test-utils";
 
 const Sorter = props => {
-	const [array, setArray] = useState([]);
-	const [arraySize, setArraySize] = useState(100);
 
 	useEffect(() => {
-		setNewArrayHandler();
-	}, []);
-
-	const setNewArrayHandler = () => {
-		let newArray = [];
-		for (let i = 0; i < arraySize; i++) {
-			newArray.push(Math.floor(Math.random() * (arraySize - 4)) + 5);
-		}
-		setArray(newArray);
-	};
-
-	const bubbleSortHandler = () => {
-		let newArray = [...array];
-		for (let i = 0; i < newArray.length; i++) {
-			for (let j = 0; j < newArray.length; j++) {
-				if (newArray[j] > newArray[j + 1]) {
-					swap(newArray, j, j + 1)
-				}
-			}
-      }
-      setArray(newArray)
-   };
-
-   const swap = (arr, i, j) => {
-      let temp = arr[i]
-      arr[i] = arr[j]
-      arr[j] = temp
-   }
-   
-
+		props.setNewArray()
+	}, [])
+	
 	return (
-		<div>
-			<button onClick={setNewArrayHandler}>new array</button>
-         <button onClick={bubbleSortHandler}>bubble sort</button>
-			<div style={{ height: "400px" }}>
-				<BarGraph values={array} color="blue" />
+		<div className={classes.Sorter}>
+
+			<div className={classes.Graph}>
+				<BarGraph values={props.array} color="white" activeValues={props.active} />
+			</div>
+
+			<div className={classes.Controls}>
+				<button onClick={props.setNewArray}>set new</button>
+				<button onClick={() => props.bubbleSort(props.array)}>bubble sort</button>
+				<button onClick={() => props.mergeSort(props.array)}>merge sort</button>
 			</div>
 		</div>
 	);
 };
 
-export default Sorter;
+const mapStateToProps = state => {
+	return {
+		array: state.array,
+		arraySize: state.arraySize,
+		active: state.active
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setNewArray: () => dispatch(actions.setNewArray()),
+		bubbleSort: (array) => dispatch(actions.bubbleSort(array)),
+		mergeSort: (array) => dispatch(actions.mergeSort(array))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sorter);

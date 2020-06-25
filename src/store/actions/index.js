@@ -1,0 +1,1 @@
+export { setNewArray, bubbleSort, mergeSort } from './sorterActions'

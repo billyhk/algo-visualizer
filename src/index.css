@@ -14,4 +14,9 @@ body {
 	font-size: 1.4rem;
 	box-sizing: border-box;
 	position: relative;
+	font-family: 'Work Sans', sans-serif;
+	overflow-y: scroll;
+	background-color: #121212;
+	color: #fff;
+	text-shadow: 0 0 0.15em #1da9cc;
 }
