@@ -18,83 +18,100 @@ export const replaceValue = (index, value) => {
 
 export const bubbleSort = array => {
 	return dispatch => {
-		let copy = array.slice();
-		let timeOutMultiplier = 0;
-		for (let i = 0; i < copy.length; i++) {
-			for (let j = 0; j < copy.length; j++) {
-				if (copy[j] > copy[j + 1]) {
-					let temp = copy[j];
-					copy[j] = copy[j + 1];
-					copy[j + 1] = temp;
+		const animations = getBubbleSortAnimations(array);
+		for (let i = 0; i < animations.length; i++) {
+			let [a, b] = animations[i];
+			let activeTimer = setTimeout(() => {
+				dispatch(setActive([a, b]));
+				clearTimeout(activeTimer);
+			}, 80 + 20 * i);
 
-					let activeTimer = setTimeout(() => {
-						dispatch(setActive([j, j + 1]));
-						clearTimeout(activeTimer);
-					}, 80 + 20 * timeOutMultiplier);
-
-					let swapTimer = setTimeout(() => {
-						dispatch(swapValues(j, j + 1));
-						clearTimeout(swapTimer);
-					}, 100 + 20 * timeOutMultiplier);
-
-					timeOutMultiplier++;
-				}
-			}
+			let swapTimer = setTimeout(() => {
+				dispatch(swapValues(a, b));
+				clearTimeout(swapTimer);
+			}, 100 + 20 * i);
 		}
 	};
 };
 
 export const mergeSort = array => {
 	return dispatch => {
-		let main = array.slice();
-		let aux = array.slice();
-		const animations = [];
-		mergeSortHelper(main, 0, main.length - 1, aux, animations);
-		let timeOutMultiplier = 0;
+		let animations = getMergeSortAnimations(array);
 
 		for (let i = 0; i < animations.length; i++) {
 			let [a, b] = animations[i];
-			let swapTimer = setTimeout(() => {
-				dispatch(replaceValue(a, b));
-				clearTimeout(swapTimer);
-			}, 100 + 20 * timeOutMultiplier);
-			timeOutMultiplier++;
+			if (i % 2 === 0) {
+				let activeTimer = setTimeout(() => {
+					dispatch(setActive([a, b]));
+					clearTimeout(activeTimer);
+				}, 80 + 20 * i);
+			} else {
+				let swapTimer = setTimeout(() => {
+					dispatch(replaceValue(a, b));
+					clearTimeout(swapTimer);
+				}, 100 + 20 * i);
+			}
 		}
 	};
 };
 
-function mergeSortHelper(mainArray, startIdx, endIdx, auxiliaryArray, animations) {
-	if (startIdx === endIdx) return;
-	const middleIdx = Math.floor((startIdx + endIdx) / 2);
-	mergeSortHelper(auxiliaryArray, startIdx, middleIdx, mainArray, animations);
-	mergeSortHelper(auxiliaryArray, middleIdx + 1, endIdx, mainArray, animations);
-	doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray, animations);
-}
+//ALGORITHIMS
 
-function doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray, animations) {
-	let k = startIdx;
-	let i = startIdx;
-	let j = middleIdx + 1;
-	while (i <= middleIdx && j <= endIdx) {
-
-		if (auxiliaryArray[i] <= auxiliaryArray[j]) {
-			animations.push([k, auxiliaryArray[i]]);
-			mainArray[k++] = auxiliaryArray[i++];
-		} else {
-			animations.push([k, auxiliaryArray[j]]);
-			mainArray[k++] = auxiliaryArray[j++];
+function getBubbleSortAnimations(array) {
+	const copy = array.slice();
+	const animations = [];
+	for (let i = 0; i < copy.length; i++) {
+		for (let j = 0; j < copy.length; j++) {
+			if (copy[j] > copy[j + 1]) {
+				let temp = copy[j];
+				copy[j] = copy[j + 1];
+				copy[j + 1] = temp;
+				animations.push([j, j + 1]);
+			}
 		}
 	}
-	while (i <= middleIdx) {
+	return animations;
+}
 
-		animations.push([k, auxiliaryArray[i]]);
-		mainArray[k++] = auxiliaryArray[i++];
+function getMergeSortAnimations(array) {
+	const main = array.slice();
+	const aux = array.slice();
+	const animations = [];
+	getMergeSortAnimationsHelper(main, 0, main.length - 1, aux, animations);
+	return animations;
+}
+
+function getMergeSortAnimationsHelper(main, start, end, aux, animations) {
+	if (start === end) return;
+	const middle = Math.floor((start + end) / 2);
+	getMergeSortAnimationsHelper(aux, start, middle, main, animations);
+	getMergeSortAnimationsHelper(aux, middle + 1, end, main, animations);
+	merge(main, start, middle, end, aux, animations);
+}
+
+function merge(main, start, middle, end, aux, animations) {
+	let mainStart = start;
+	let auxStart = start;
+	let auxMiddle = middle + 1;
+	while (auxStart <= middle && auxMiddle <= end) {
+		animations.push([auxStart, auxMiddle]);
+		if (aux[auxStart] <= aux[auxMiddle]) {
+			animations.push([mainStart, aux[auxStart]]);
+			main[mainStart++] = aux[auxStart++];
+		} else {
+			animations.push([mainStart, aux[auxMiddle]]);
+			main[mainStart++] = aux[auxMiddle++];
+		}
 	}
-	while (j <= endIdx) {
-
-
-		animations.push([k, auxiliaryArray[j]]);
-		mainArray[k++] = auxiliaryArray[j++];
+	while (auxStart <= middle) {
+		animations.push([auxStart, auxStart]);
+		animations.push([mainStart, aux[auxStart]]);
+		main[mainStart++] = aux[auxStart++];
+	}
+	while (auxMiddle <= end) {
+		animations.push([auxMiddle, auxMiddle]);
+		animations.push([mainStart, aux[auxMiddle]]);
+		main[mainStart++] = aux[auxMiddle++];
 	}
 }
 
