@@ -1,1 +1,7 @@
-export { setNewArray, playSortingAnimation, stopSortingAnimation } from './sorterActions'
+export {
+	setNewArray,
+	playSortingAnimation,
+	stopSortingAnimation,
+	setArraySize,
+	setAnimationSpeed,
+} from "./sorterActions";

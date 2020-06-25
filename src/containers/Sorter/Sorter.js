@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 import BarGraph from "../../components/BarGraph/BarGraph";
 import classes from "./Sorter.module.css";
+import { Slider } from "@material-ui/core";
 import {
 	getBubbleSortAnimations,
 	getQuickSortAnimations,
@@ -13,6 +14,15 @@ const Sorter = props => {
 	useEffect(() => {
 		props.setNewArray();
 	}, []);
+
+	const sizeChangeHandler = (event, newValue) => {
+		props.setArraySize(newValue);
+		props.setNewArray();
+	};
+
+	const animationSpeedChangeHandler = (event, newValue) => {
+		props.setAnimationSpeed(Math.abs(newValue - 100));
+	};
 
 	return (
 		<div className={classes.Sorter}>
@@ -47,7 +57,25 @@ const Sorter = props => {
 				>
 					merge sort
 				</button>
-				<button onClick={props.stopSortingAnimation} disabled={!props.sorting}>stop</button>
+				<button onClick={props.stopSortingAnimation} disabled={!props.sorting}>
+					stop
+				</button>
+				<Slider
+					style={{ margin: "10rem 0" }}
+					onChange={sizeChangeHandler}
+					value={props.arraySize}
+					valueLabelDisplay
+					disabled={props.sorting}
+					min={10}
+				/>
+
+				<Slider
+					style={{ margin: "10rem 0" }}
+					onChange={animationSpeedChangeHandler}
+					value={Math.abs(props.animationSpeed - 100)}
+					disabled={props.sorting}
+					min={1}
+				/>
 			</div>
 		</div>
 	);
@@ -68,6 +96,8 @@ const mapDispatchToProps = dispatch => {
 		setNewArray: () => dispatch(actions.setNewArray()),
 		playSortingAnimation: animations => dispatch(actions.playSortingAnimation(animations)),
 		stopSortingAnimation: () => dispatch(actions.stopSortingAnimation()),
+		setArraySize: arraySize => dispatch(actions.setArraySize(arraySize)),
+		setAnimationSpeed: animationSpeed => dispatch(actions.setAnimationSpeed(animationSpeed)),
 	};
 };
 
