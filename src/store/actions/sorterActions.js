@@ -4,21 +4,10 @@ export const setNewArray = () => {
 	return { type: actionTypes.SET_NEW_ARRAY };
 };
 
-export const setActive = active => {
-	return { type: actionTypes.SET_ACTIVE, active };
-};
-
-export const swapValues = (index1, index2) => {
-	return { type: actionTypes.SWAP_VALUES, index1, index2 };
-};
-
-export const replaceValue = (index, value) => {
-	return { type: actionTypes.REPLACE_VALUE, index, value };
-};
-
 export const playSortingAnimation = animations => {
 	return (dispatch, getState) => {
 		let animationSpeed = getState().animationSpeed
+		dispatch(setSorting(true))
 		for (let i = 0; i < animations.length; i++) {
 			let [a, b, type] = animations[i];
 			if (type === "active") {
@@ -34,11 +23,44 @@ export const playSortingAnimation = animations => {
 				}, 100 + animationSpeed * i);
 			}
 			if (type === "replace") {
-				let swapTimer = setTimeout(() => {
+				let replaceTimer = setTimeout(() => {
 					dispatch(replaceValue(a, b));
-					clearTimeout(swapTimer);
+					clearTimeout(replaceTimer);
 				}, 100 + animationSpeed * i);
 			}
 		}
+		let endSortingTimer = setTimeout(() => {
+			dispatch(setSorting(false))
+			dispatch(setActive([]))
+			clearTimeout(endSortingTimer)
+		}, 100 + animationSpeed * animations.length)
 	}
 }
+
+export const stopSortingAnimation = () => {
+	return (dispatch) => {
+		let highestTimeoutId = setTimeout(";");
+		for (let i = 0; i < highestTimeoutId; i++) {
+			clearTimeout(i);
+		}
+		dispatch(setActive([]))
+		dispatch(setSorting(false))
+	}
+}
+
+const setSorting = (sorting) => {
+	return { type: actionTypes.SET_SORTING, sorting }
+}
+
+const setActive = active => {
+	return { type: actionTypes.SET_ACTIVE, active };
+};
+
+const swapValues = (index1, index2) => {
+	return { type: actionTypes.SWAP_VALUES, index1, index2 };
+};
+
+const replaceValue = (index, value) => {
+	return { type: actionTypes.REPLACE_VALUE, index, value };
+};
+

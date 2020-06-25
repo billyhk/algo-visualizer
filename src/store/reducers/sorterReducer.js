@@ -2,9 +2,9 @@ import * as actionTypes from '../actions/actionTypes'
 
 const initialState = {
    array: [],
-   arraySize: 50,
-   active: [],
    sorting: false,
+   arraySize: 100,
+   active: [],
    animationSpeed: 15
 }
 
@@ -16,9 +16,12 @@ const setNewArray = (state, action) => {
    return {...state, array} 
 }
 
+const setSorting = (state, action) => {
+   return {...state, sorting: action.sorting}
+}
+
 const setActive = (state, action) => {
-   let active = [...action.active]
-   return {...state, active}
+   return {...state, active: action.active}
 }
 
 const swapValues = (state, action) => {
@@ -35,11 +38,12 @@ const replaceValue = (state, action) => {
    return {...state, array}
 }
 
-
 const reducer = (state = initialState, action) => {
    switch (action.type) {
       case actionTypes.SET_NEW_ARRAY:
          return setNewArray(state, action)
+      case actionTypes.SET_SORTING:
+         return setSorting(state, action)
       case actionTypes.SET_ACTIVE:
          return setActive(state, action)
       case actionTypes.SWAP_VALUES:

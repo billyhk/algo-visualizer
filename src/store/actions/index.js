@@ -1,1 +1,1 @@
-export { setNewArray, playSortingAnimation } from './sorterActions'
+export { setNewArray, playSortingAnimation, stopSortingAnimation } from './sorterActions'

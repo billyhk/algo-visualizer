@@ -17,20 +17,37 @@ const Sorter = props => {
 	return (
 		<div className={classes.Sorter}>
 			<div className={classes.Graph}>
-				<BarGraph values={props.array} color="white" activeValues={props.active} />
+				<BarGraph
+					values={props.array}
+					color="white"
+					activeValues={props.active}
+					sorting={props.sorting}
+				/>
 			</div>
 
 			<div className={classes.Controls}>
-				<button onClick={props.setNewArray}>set new</button>
-				<button onClick={() => props.playSortingAnimation(getBubbleSortAnimations(props.array))}>
+				<button onClick={props.setNewArray} disabled={props.sorting}>
+					set new
+				</button>
+				<button
+					onClick={() => props.playSortingAnimation(getBubbleSortAnimations(props.array))}
+					disabled={props.sorting}
+				>
 					bubble sort
 				</button>
-				<button onClick={() => props.playSortingAnimation(getQuickSortAnimations(props.array))}>
+				<button
+					onClick={() => props.playSortingAnimation(getQuickSortAnimations(props.array))}
+					disabled={props.sorting}
+				>
 					quick sort
 				</button>
-				<button onClick={() => props.playSortingAnimation(getMergeSortAnimations(props.array))}>
+				<button
+					onClick={() => props.playSortingAnimation(getMergeSortAnimations(props.array))}
+					disabled={props.sorting}
+				>
 					merge sort
 				</button>
+				<button onClick={props.stopSortingAnimation} disabled={!props.sorting}>stop</button>
 			</div>
 		</div>
 	);
@@ -38,10 +55,11 @@ const Sorter = props => {
 
 const mapStateToProps = state => {
 	return {
+		sorting: state.sorting,
 		array: state.array,
 		arraySize: state.arraySize,
 		active: state.active,
-		animationSpeed: state.animationSpeed
+		animationSpeed: state.animationSpeed,
 	};
 };
 
@@ -49,6 +67,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		setNewArray: () => dispatch(actions.setNewArray()),
 		playSortingAnimation: animations => dispatch(actions.playSortingAnimation(animations)),
+		stopSortingAnimation: () => dispatch(actions.stopSortingAnimation()),
 	};
 };
 
