@@ -32,6 +32,7 @@ export const playSortingAnimation = animations => {
 		let endSortingTimer = setTimeout(() => {
 			dispatch(setSorting(false));
 			dispatch(setActive([]));
+			dispatch(setSorted(true))
 			clearTimeout(endSortingTimer);
 		}, 100 + animationSpeed * animations.length);
 	};
@@ -54,6 +55,10 @@ export const setArraySize = arraySize => {
 
 export const setAnimationSpeed = animationSpeed => {
 	return { type: actionTypes.SET_ANIMATION_SPEED, animationSpeed }
+}
+
+export const setSorted = sorted => {
+	return {type: actionTypes.SET_SORTED, sorted}
 }
 
 const setSorting = sorting => {

@@ -4,4 +4,5 @@ export {
 	stopSortingAnimation,
 	setArraySize,
 	setAnimationSpeed,
+	setSorted
 } from "./sorterActions";

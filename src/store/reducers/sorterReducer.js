@@ -3,9 +3,10 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
 	array: [],
 	sorting: false,
-	arraySize: 60,
+	sorted: false,
+	arraySize: 50,
 	active: [],
-	animationSpeed: 50,
+	animationSpeed: 55,
 };
 
 const setNewArray = (state, action) => {
@@ -20,13 +21,17 @@ const setSorting = (state, action) => {
 	return { ...state, sorting: action.sorting };
 };
 
+const setSorted = (state, action) => {
+	return { ...state, sorted: action.sorted };
+};
+
 const setArraySize = (state, action) => {
 	return { ...state, arraySize: action.arraySize };
 };
 
 const setAnimationSpeed = (state, action) => {
-   return { ...state, animationSpeed: action.animationSpeed }
-}
+	return { ...state, animationSpeed: action.animationSpeed };
+};
 
 const setActive = (state, action) => {
 	return { ...state, active: action.active };
@@ -52,10 +57,12 @@ const reducer = (state = initialState, action) => {
 			return setNewArray(state, action);
 		case actionTypes.SET_SORTING:
 			return setSorting(state, action);
+		case actionTypes.SET_SORTED:
+			return setSorted(state, action);
 		case actionTypes.SET_ARRAY_SIZE:
-         return setArraySize(state, action)
-      case actionTypes.SET_ANIMATION_SPEED:
-         return setAnimationSpeed(state, action)
+			return setArraySize(state, action);
+		case actionTypes.SET_ANIMATION_SPEED:
+			return setAnimationSpeed(state, action);
 		case actionTypes.SET_ACTIVE:
 			return setActive(state, action);
 		case actionTypes.SWAP_VALUES:

@@ -8,15 +8,22 @@ import {
 	getBubbleSortAnimations,
 	getQuickSortAnimations,
 	getMergeSortAnimations,
+	getHeapSortAnimations
 } from "../../algorithms/sorting";
 
 const Sorter = props => {
 	useEffect(() => {
-		props.setNewArray();
+		setNewArrayHandler()
 	}, []);
+
+	const setNewArrayHandler = () => {
+		props.setSorted(false)
+		props.setNewArray();
+	}
 
 	const sizeChangeHandler = (event, newValue) => {
 		props.setArraySize(newValue);
+		props.setSorted(false)
 		props.setNewArray();
 	};
 
@@ -36,7 +43,7 @@ const Sorter = props => {
 			</div>
 
 			<div className={classes.Controls}>
-				<button onClick={props.setNewArray} disabled={props.sorting}>
+				<button onClick={setNewArrayHandler} disabled={props.sorting}>
 					set new
 				</button>
 				<button
@@ -56,6 +63,12 @@ const Sorter = props => {
 					disabled={props.sorting}
 				>
 					merge sort
+				</button>
+				<button
+					onClick={() => props.playSortingAnimation(getHeapSortAnimations(props.array))}
+					disabled={props.sorting}
+				>
+					heapSort
 				</button>
 				<button onClick={props.stopSortingAnimation} disabled={!props.sorting}>
 					stop
@@ -96,6 +109,7 @@ const mapDispatchToProps = dispatch => {
 		setNewArray: () => dispatch(actions.setNewArray()),
 		playSortingAnimation: animations => dispatch(actions.playSortingAnimation(animations)),
 		stopSortingAnimation: () => dispatch(actions.stopSortingAnimation()),
+		setSorted: (sorted) => dispatch(actions.setSorted(sorted)),
 		setArraySize: arraySize => dispatch(actions.setArraySize(arraySize)),
 		setAnimationSpeed: animationSpeed => dispatch(actions.setAnimationSpeed(animationSpeed)),
 	};
