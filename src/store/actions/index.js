@@ -11,5 +11,6 @@ export {
 	setStart,
 	setTarget,
 	addWall,
-	deleteWall
+	deleteWall,
+	playPathFindingAnimation
 } from './pathFindingActions'

@@ -1,9 +1,22 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const intitialState = {
-	start: [10, 10],
-	target: [15, 15],
+	start: [5, 5],
+	target: [16, 15],
 	walls: [],
+	visited: [],
+	path: []
+};
+
+
+const setStart = (state, action) => {
+	let start = action.coords;
+	return { ...state, start };
+};
+
+const setTarget = (state, action) => {
+	let target = action.coords;
+	return { ...state, target };
 };
 
 const addWall = (state, action) => {
@@ -18,15 +31,18 @@ const deleteWall = (state, action) => {
 	return { ...state, walls };
 };
 
-const setStart = (state, action) => {
-	let start = action.coords;
-	return { ...state, start };
-};
+const addVisited = (state, action) => {
+	let visited = [...state.visited]
+	visited.push(action.coords)
+	return {...state, visited}
+}
 
-const setTarget = (state, action) => {
-	let target = action.coords;
-	return { ...state, target };
-};
+const addPath = (state, action) => {
+	let path = [...state.path]
+	path.push(action.coords)
+	return {...state, path}
+}
+
 
 const reducer = (state = intitialState, action) => {
 	switch (action.type) {
@@ -38,6 +54,10 @@ const reducer = (state = intitialState, action) => {
 			return addWall(state, action);
 		case actionTypes.DELETE_WALL:
 			return deleteWall(state, action)
+		case actionTypes.ADD_VISITED:
+			return addVisited(state, action)
+		case actionTypes.ADD_PATH:
+			return addPath(state, action)
 		default:
 			return state;
 	}

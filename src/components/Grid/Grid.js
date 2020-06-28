@@ -11,12 +11,14 @@ const Grid = props => {
 	const start = useSelector(state => state.path.start);
 	const target = useSelector(state => state.path.target);
    const walls = useSelector(state => state.path.walls);
+	const visited = useSelector(state => state.path.visited)
+	const path = useSelector(state => state.path.path)
 
-	const dispatch = useDispatch();
-	const addWall = useCallback(coords => dispatch(actions.addWall(coords)), [dispatch]);
-	const deleteWall = useCallback(coords => dispatch(actions.deleteWall(coords)), [dispatch]);
-	const setStart = useCallback(coords => dispatch(actions.setStart(coords)), [dispatch]);
+   const dispatch = useDispatch();
+   const setStart = useCallback(coords => dispatch(actions.setStart(coords)), [dispatch]);
 	const setTarget = useCallback(coords => dispatch(actions.setTarget(coords)), [dispatch]);
+	const addWall = useCallback(coords => dispatch(actions.addWall(coords)), [dispatch]);
+   const deleteWall = useCallback(coords => dispatch(actions.deleteWall(coords)), [dispatch]);
 
 	const gridStyle = {
 		display: "grid",
@@ -70,10 +72,12 @@ const Grid = props => {
 					isStart={start[0] === x && start[1] === y}
 					isTarget={target[0] === x && target[1] === y}
 					isWall={includesCoords(walls, x, y)}
+					visited={includesCoords(visited, x, y)}
+					isPath={includesCoords(path, x, y)}
 					makeStart={() => setStart([x, y])}
 					makeTarget={() => setTarget([x, y])}
 					makeWall={() => addWall([x, y])}
-					deleteWall={() => deleteWall([x, y])}
+               deleteWall={() => deleteWall([x, y])}
 					mouseDown={mouseDown}
 					draggingStart={draggingStart}
 					setDraggingStartTrue={setDraggingStartTrue}

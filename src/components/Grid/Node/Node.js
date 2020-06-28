@@ -49,12 +49,14 @@ const Node = props => {
 	if (props.isWall) {
 		fill = "black";
 	}
-	if (props.isPath) {
-		fill = "yellow";
-   }
+	
    if (props.visited) {
 		fill = "teal";
 	}
+
+	if (props.isPath) {
+		fill = "yellow";
+   }
 
 	const nodeStyle = {
 		backgroundColor: fill,
