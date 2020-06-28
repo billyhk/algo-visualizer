@@ -43,6 +43,11 @@ const addPath = (state, action) => {
 	return {...state, path}
 }
 
+const clearVisitedAndPath = (state, action) => {
+	let path = []
+	let visited = []
+	return {...state, visited, path}
+}
 
 const reducer = (state = intitialState, action) => {
 	switch (action.type) {
@@ -58,6 +63,8 @@ const reducer = (state = intitialState, action) => {
 			return addVisited(state, action)
 		case actionTypes.ADD_PATH:
 			return addPath(state, action)
+		case actionTypes.CLEAR_VISITED_AND_PATH:
+			return clearVisitedAndPath(state, action)
 		default:
 			return state;
 	}

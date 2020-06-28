@@ -51,11 +51,11 @@ const Node = props => {
 	}
 	
    if (props.visited) {
-		fill = "teal";
+		fill = "gray";
 	}
 
 	if (props.isPath) {
-		fill = "yellow";
+		fill = "lightBlue";
    }
 
 	const nodeStyle = {

@@ -13,3 +13,4 @@ export const ADD_WALL = "ADD_WALL"
 export const DELETE_WALL = "DELETE_WALL"
 export const ADD_VISITED = "ADD_VISITED"
 export const ADD_PATH = "ADD_PATH"
+export const CLEAR_VISITED_AND_PATH = 'CLEAR_VISITED_AND_PATH'

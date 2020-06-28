@@ -18,7 +18,8 @@ const Grid = props => {
    const setStart = useCallback(coords => dispatch(actions.setStart(coords)), [dispatch]);
 	const setTarget = useCallback(coords => dispatch(actions.setTarget(coords)), [dispatch]);
 	const addWall = useCallback(coords => dispatch(actions.addWall(coords)), [dispatch]);
-   const deleteWall = useCallback(coords => dispatch(actions.deleteWall(coords)), [dispatch]);
+	const deleteWall = useCallback(coords => dispatch(actions.deleteWall(coords)), [dispatch]);
+	const clearVisitedandPath = () => dispatch(actions.clearVisitedandPath())
 
 	const gridStyle = {
 		display: "grid",
@@ -29,7 +30,8 @@ const Grid = props => {
 
 	const onMouseDownHandler = e => {
 		e.preventDefault();
-      setMouseDown(true);
+		setMouseDown(true);
+		clearVisitedandPath()
 	};
 
 	const onMouseUpHandler = e => {
@@ -90,6 +92,7 @@ const Grid = props => {
 	}
 
 	return (
+
 		<div
 			onMouseDown={onMouseDownHandler}
 			onMouseUp={onMouseUpHandler}

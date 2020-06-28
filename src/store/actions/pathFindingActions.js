@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import { ReactReduxContext } from "react-redux";
 
 export const setStart = coords => {
 	return { type: actionTypes.SET_START, coords };
@@ -30,11 +31,15 @@ export const playPathFindingAnimation = animations => {
 				let pathTimer = setTimeout(() => {
 					dispatch(addPath([x, y]))
 					clearTimeout(pathTimer)
-				}, 20 * i)
+				}, 25 * i)
 			}
 		}
 	}
 };
+
+export const clearVisitedandPath = () => {
+	return {type: actionTypes.CLEAR_VISITED_AND_PATH}
+}
 
 const addVisited = coords => {
 	return { type: actionTypes.ADD_VISITED, coords }
