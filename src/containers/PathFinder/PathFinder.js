@@ -1,9 +1,10 @@
 import React from 'react'
+import Grid from '../../components/Grid/Grid'
 
 const PathFinder = (props) => {
    return (
       <div>
-         PathFinder
+         <Grid width={25} height={20} />
       </div>
    )
 }

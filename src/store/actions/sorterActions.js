@@ -6,7 +6,7 @@ export const setNewArray = () => {
 
 export const playSortingAnimation = animations => {
 	return (dispatch, getState) => {
-		let animationSpeed = getState().animationSpeed;
+		let animationSpeed = getState().sort.animationSpeed;
 		dispatch(setSorting(true));
 		for (let i = 0; i < animations.length; i++) {
 			let [a, b, type] = animations[i];

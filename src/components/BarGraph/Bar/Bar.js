@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Bar = props => {
-	const arraySize = useSelector(state => state.arraySize);
-	const sorting = useSelector(state => state.sorting)
+	const arraySize = useSelector(state => state.sort.arraySize);
+	const sorting = useSelector(state => state.sort.sorting)
 
 	const containerStyle = {
 		height: `${(props.value / arraySize) * 100}%`,

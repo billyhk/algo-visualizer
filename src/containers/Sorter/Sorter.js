@@ -8,22 +8,22 @@ import {
 	getBubbleSortAnimations,
 	getQuickSortAnimations,
 	getMergeSortAnimations,
-	getHeapSortAnimations
+	getHeapSortAnimations,
 } from "../../algorithms/sorting";
 
 const Sorter = props => {
 	useEffect(() => {
-		setNewArrayHandler()
+		setNewArrayHandler();
 	}, []);
 
 	const setNewArrayHandler = () => {
-		props.setSorted(false)
+		props.setSorted(false);
 		props.setNewArray();
-	}
+	};
 
 	const sizeChangeHandler = (event, newValue) => {
 		props.setArraySize(newValue);
-		props.setSorted(false)
+		props.setSorted(false);
 		props.setNewArray();
 	};
 
@@ -96,11 +96,11 @@ const Sorter = props => {
 
 const mapStateToProps = state => {
 	return {
-		sorting: state.sorting,
-		array: state.array,
-		arraySize: state.arraySize,
-		active: state.active,
-		animationSpeed: state.animationSpeed,
+		sorting: state.sort.sorting,
+		array: state.sort.array,
+		arraySize: state.sort.arraySize,
+		active: state.sort.active,
+		animationSpeed: state.sort.animationSpeed,
 	};
 };
 
@@ -109,7 +109,7 @@ const mapDispatchToProps = dispatch => {
 		setNewArray: () => dispatch(actions.setNewArray()),
 		playSortingAnimation: animations => dispatch(actions.playSortingAnimation(animations)),
 		stopSortingAnimation: () => dispatch(actions.stopSortingAnimation()),
-		setSorted: (sorted) => dispatch(actions.setSorted(sorted)),
+		setSorted: sorted => dispatch(actions.setSorted(sorted)),
 		setArraySize: arraySize => dispatch(actions.setArraySize(arraySize)),
 		setAnimationSpeed: animationSpeed => dispatch(actions.setAnimationSpeed(animationSpeed)),
 	};

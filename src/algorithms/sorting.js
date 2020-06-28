@@ -3,8 +3,8 @@
 export function getBubbleSortAnimations(array) {
 	const copy = array.slice();
 	const animations = [];
-	for (let i = 0; i < copy.length; i++) {
-		for (let j = 0; j < copy.length; j++) {
+	for (let i = 0; i < copy.length - 1; i++) {
+		for (let j = 0; j < copy.length - i - 1; j++) {
 			animations.push([j, j + 1, "active"]);
 			if (copy[j] > copy[j + 1]) {
 				animations.push([j, j + 1, "swap"]);
@@ -117,7 +117,7 @@ function merge(main, start, middle, end, aux, animations) {
 //HEAP SORT
 
 export function getHeapSortAnimations(array) {
-	const copy = array.slice()
+	const copy = array.slice();
 	const animations = [];
 	let length = array.length;
 	let i = Math.floor(length / 2 - 1);
@@ -127,30 +127,30 @@ export function getHeapSortAnimations(array) {
 		i--;
 	}
 	while (j >= 0) {
-		animations.push([0, j, 'active']);
-		animations.push([0, j, 'swap']);
-		swap(copy, 0, j)
+		animations.push([0, j, "active"]);
+		animations.push([0, j, "swap"]);
+		swap(copy, 0, j);
 		heapify(copy, j, 0, animations);
 		j--;
 	}
-	return animations
+	return animations;
 }
 
 function heapify(array, length, i, animations) {
 	let largest = i;
 	let left = i * 2 + 1;
 	let right = left + 1;
-	animations.push([largest, left, 'active']);
-	animations.push([largest, right, 'active']);
+	animations.push([largest, left, "active"]);
+	animations.push([largest, right, "active"]);
 	if (left < length && array[left] > array[largest]) {
 		largest = left;
 	}
 	if (right < length && array[right] > array[largest]) {
 		largest = right;
 	}
-	if (largest != i) {
-		animations.push([i, largest, 'swap']);
-		swap(array, i, largest)
+	if (largest !== i) {
+		animations.push([i, largest, "swap"]);
+		swap(array, i, largest);
 		heapify(array, length, largest, animations);
 	}
 	return array;

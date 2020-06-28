@@ -6,3 +6,10 @@ export {
 	setAnimationSpeed,
 	setSorted
 } from "./sorterActions";
+
+export {
+	setStart,
+	setTarget,
+	addWall,
+	deleteWall
+} from './pathFindingActions'
