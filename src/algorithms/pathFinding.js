@@ -1,3 +1,5 @@
+//BFS
+
 export const getBFSAnimations = (start, target, walls, width, height) => {
 	let animations = []
 	let queue = [start];
@@ -14,7 +16,7 @@ export const getBFSAnimations = (start, target, walls, width, height) => {
 				queue.push(next);
 				visited[next] = true;
 				prev[next] = node
-				if (coordsAreEqual(target, next)) {
+				if (nodesAreEqual(target, next)) {
 					addShortestPathAnimations(start, target, prev, animations)
 					return animations
 				}
@@ -28,20 +30,24 @@ export const getBFSAnimations = (start, target, walls, width, height) => {
 function getPossibleNeighbors(node, walls, width, height) {
 	let possibleNeighbors = [];
 	//check right neighbor
-	if (node[0] + 1 < width && !includesCoords(walls, node[0] + 1, node[1])) {
-		possibleNeighbors.push([node[0] + 1, node[1]]);
-	}
-	//check left neighbor
-	if (node[0] - 1 >= 0 && !includesCoords(walls, node[0] - 1, node[1])) {
-		possibleNeighbors.push([node[0] - 1, node[1]]);
-	}
-	//check top neighbor
-	if (node[1] + 1 < height && !includesCoords(walls, node[0], node[1] + 1)) {
-		possibleNeighbors.push([node[0], node[1] + 1]);
+	let rightNeighbor = [node[0] + 1, node[1]]
+	if (rightNeighbor[0] < width && !walls[rightNeighbor]) {
+		possibleNeighbors.push(rightNeighbor);
 	}
 	// check bottom neighbor
-	if (node[1] - 1 >= 0 && !includesCoords(walls, node[0], node[1] - 1)) {
-		possibleNeighbors.push([node[0], node[1] - 1]);
+	let bottomNeighbor = [node[0], node[1] - 1]
+	if (bottomNeighbor[1] >= 0 && !walls[bottomNeighbor]) {
+		possibleNeighbors.push(bottomNeighbor);
+	}
+	//check left neighbor
+	let leftNeighbor = [node[0] - 1, node[1]]
+	if (leftNeighbor[0] >= 0 && !walls[leftNeighbor]) {
+		possibleNeighbors.push(leftNeighbor);
+	}
+	//check top neighbor
+	let topNeighbor = [node[0], node[1] + 1]
+	if (topNeighbor[1] < height && !walls[topNeighbor]) {
+		possibleNeighbors.push(topNeighbor);
 	}
 	return possibleNeighbors
 }
@@ -49,7 +55,7 @@ function getPossibleNeighbors(node, walls, width, height) {
 function addShortestPathAnimations(start, target, prev, animations) {
 	let path = []
 	let at = target
-	while (!coordsAreEqual(at, start)) {
+	while (!nodesAreEqual(at, start)) {
 		path.push(at)
 		at = prev[at]
 	}
@@ -60,15 +66,6 @@ function addShortestPathAnimations(start, target, prev, animations) {
 	}
 }
 
-function coordsAreEqual(coords1, coords2) {
-	return coords1[0] === coords2[0] && coords1[1] === coords2[1];
+function nodesAreEqual(node1, node2) {
+	return node1[0] === node2[0] && node1[1] === node2[1];
 }
-
-const includesCoords = (array, x, y) => {
-	for (let i = 0; i < array.length; i++) {
-		if (array[i][0] === x && array[i][1] === y) {
-			return true;
-		}
-	}
-	return false;
-};

@@ -3,14 +3,16 @@ import TargetIcon from "@material-ui/icons/MyLocation";
 import StartIcon from "@material-ui/icons/TripOrigin";
 
 const Node = props => {
+	const { type } = props;
+
 	const onMouseOverHandler = e => {
 		e.preventDefault();
 		if (
 			props.mouseDown &&
 			!(
-				props.isStart ||
-				props.isTarget ||
-				props.isWall ||
+				type === "start" ||
+				type === "target" ||
+				type === "wall" ||
 				props.draggingStart ||
 				props.draggingTarget
 			)
@@ -18,45 +20,53 @@ const Node = props => {
 			props.makeWall();
 		}
 
-		if (props.draggingStart && !(props.isTarget || props.isWall)) {
+		if (props.draggingStart && !(type === "target" || type === "wall")) {
 			props.makeStart();
 		}
 
-		if (props.draggingTarget && !(props.isStart || props.isWall)) {
+		if (props.draggingTarget && !(type === "start" || type === "wall")) {
 			props.makeTarget();
 		}
 	};
 
 	const onMouseDownHandler = e => {
 		e.preventDefault();
-		if (props.isStart) {
+		if (type === "start") {
 			props.setDraggingStartTrue();
-		} else if (props.isTarget) {
+		} else if (type === "target") {
 			props.setDraggingTargetTrue();
-		} else if (!props.isWall) {
+		} else if (!type === "wall") {
 			props.makeWall();
-      }
+		}
 	};
 
 	const deleteWallHandler = e => {
-      e.preventDefault();
-      if (props.isWall) {
-         props.deleteWall()
-      }
+		e.preventDefault();
+		if (type === "wall") {
+			props.deleteWall();
+		}
 	};
 
 	let fill = "white";
-	if (props.isWall) {
-		fill = "black";
+	let icon = null;
+	switch (type) {
+		case "start":
+			icon = <StartIcon style={{ color: "green", fontSize: "3rem" }} />;
+			break;
+		case "target":
+			icon = <TargetIcon style={{ color: "red", fontSize: "3rem" }} />;
+			break;
+		case "wall":
+			fill = "black";
+			break;
+		case "path":
+			fill = "lightBlue";
+			break;
+		case "visited":
+			fill = "gray";
+			break;
+		default:
 	}
-	
-   if (props.visited) {
-		fill = "gray";
-	}
-
-	if (props.isPath) {
-		fill = "lightBlue";
-   }
 
 	const nodeStyle = {
 		backgroundColor: fill,
@@ -64,20 +74,12 @@ const Node = props => {
 		width: "3rem",
 	};
 
-	let icon = null;
-	if (props.isStart) {
-		icon = <StartIcon style={{ color: "green", fontSize: "3rem" }} />;
-	}
-	if (props.isTarget) {
-		icon = <TargetIcon style={{ color: "red", fontSize: "3rem" }} />;
-	}
-
 	return (
 		<div
 			style={nodeStyle}
 			onMouseOver={onMouseOverHandler}
 			onMouseDown={onMouseDownHandler}
-         onClick={deleteWallHandler}
+			onClick={deleteWallHandler}
 		>
 			{icon}
 		</div>

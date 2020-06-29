@@ -1,20 +1,19 @@
 import * as actionTypes from "./actionTypes";
-import { ReactReduxContext } from "react-redux";
 
-export const setStart = coords => {
-	return { type: actionTypes.SET_START, coords };
+export const setStart = node => {
+	return { type: actionTypes.SET_START, node };
 };
 
-export const setTarget = coords => {
-	return { type: actionTypes.SET_TARGET, coords };
+export const setTarget = node => {
+	return { type: actionTypes.SET_TARGET, node };
 };
 
-export const addWall = coords => {
-	return { type: actionTypes.ADD_WALL, coords };
+export const addWall = node => {
+	return { type: actionTypes.ADD_WALL, node };
 };
 
-export const deleteWall = coords => {
-	return { type: actionTypes.DELETE_WALL, coords };
+export const deleteWall = node => {
+	return { type: actionTypes.DELETE_WALL, node };
 };
 
 export const playPathFindingAnimation = animations => {
@@ -37,14 +36,18 @@ export const playPathFindingAnimation = animations => {
 	}
 };
 
+export const clearAll = () => {
+	return {type: actionTypes.CLEAR_ALL }
+}
+
 export const clearVisitedandPath = () => {
 	return {type: actionTypes.CLEAR_VISITED_AND_PATH}
 }
 
-const addVisited = coords => {
-	return { type: actionTypes.ADD_VISITED, coords }
+const addVisited = node => {
+	return { type: actionTypes.ADD_VISITED, node }
 }
 
-const addPath = coords => {
-	return { type: actionTypes.ADD_PATH, coords }
+const addPath = node => {
+	return { type: actionTypes.ADD_PATH, node }
 }

@@ -13,5 +13,6 @@ export {
 	addWall,
 	deleteWall,
 	playPathFindingAnimation,
+	clearAll,
 	clearVisitedandPath
 } from './pathFindingActions'
