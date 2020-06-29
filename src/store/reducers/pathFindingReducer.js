@@ -6,6 +6,7 @@ const intitialState = {
 	walls: {},
 	visited: {},
 	path: {},
+	finding: false
 };
 
 const setStart = (state, action) => {
@@ -52,9 +53,13 @@ const clearAll = (state, action) => {
 const clearVisitedAndPath = (state, action) => {
 	let path = {};
 	let visited = {};
-	let walls = {};
-	return { ...state, visited, path, walls };
+	return { ...state, visited, path };
 };
+
+const setFinding = (state, action) => {
+	let finding = action.finding
+	return {...state, finding }
+}
 
 const reducer = (state = intitialState, action) => {
 	switch (action.type) {
@@ -74,6 +79,8 @@ const reducer = (state = intitialState, action) => {
 			return clearAll(state, action)
 		case actionTypes.CLEAR_VISITED_AND_PATH:
 			return clearVisitedAndPath(state, action);
+		case actionTypes.SET_FINDING:
+			return setFinding(state, action)
 		default:
 			return state;
 	}

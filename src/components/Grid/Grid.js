@@ -13,6 +13,7 @@ const Grid = props => {
 	const walls = useSelector(state => state.path.walls);
 	const visited = useSelector(state => state.path.visited);
 	const path = useSelector(state => state.path.path);
+	const finding = useSelector(state => state.path.finding);
 
 	const dispatch = useDispatch();
 	const setStart = useCallback(node => dispatch(actions.setStart(node)), [dispatch]);
@@ -29,9 +30,11 @@ const Grid = props => {
 	};
 
 	const onMouseDownHandler = e => {
-		e.preventDefault();
-		setMouseDown(true);
-		clearVisitedandPath();
+		if (!finding) {
+			e.preventDefault();
+			setMouseDown(true);
+			clearVisitedandPath();
+		}
 	};
 
 	const onMouseUpHandler = e => {
@@ -49,11 +52,15 @@ const Grid = props => {
 	};
 
 	const setDraggingStartTrue = () => {
-		setDraggingStart(true);
+		if (!finding) {
+			setDraggingStart(true);
+		}
 	};
 
 	const setDraggingTargetTrue = () => {
-		setDraggingTarget(true);
+		if (!finding) {
+			setDraggingTarget(true);
+		}
 	};
 
 	const nodesAreEqual = (node1, node2) => {
