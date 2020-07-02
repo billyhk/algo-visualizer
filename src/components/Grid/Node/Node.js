@@ -72,6 +72,7 @@ const Node = props => {
 		backgroundColor: fill,
 		height: "3rem",
 		width: "3rem",
+		transition: 'all .1s ease-in'
 	};
 
 	return (

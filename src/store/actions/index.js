@@ -13,7 +13,8 @@ export {
 	addWall,
 	deleteWall,
 	playPathFindingAnimation,
-	stopPathFindingAnimation,
+	playMazeAnimation,
+	stopAnimation,
 	clearAll,
 	clearVisitedandPath
 } from './pathFindingActions'

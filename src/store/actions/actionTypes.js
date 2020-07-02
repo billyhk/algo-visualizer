@@ -9,6 +9,7 @@ export const REPLACE_VALUE = "REPLACE_VALUE";
 
 export const SET_START = "SET_START"
 export const SET_TARGET = "SET_TARGET"
+export const SET_WALLS = "SET_WALLS"
 export const ADD_WALL = "ADD_WALL"
 export const DELETE_WALL = "DELETE_WALL"
 export const ADD_VISITED = "ADD_VISITED"

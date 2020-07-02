@@ -1,7 +1,11 @@
 import React from "react";
 import Grid from "../../components/Grid/Grid";
 import { useSelector, useDispatch } from "react-redux";
-import { getBFSAnimations } from "../../algorithms/pathFinding";
+import {
+	getBFSAnimations,
+	getDFSAnimations,
+	getMazeAnimations,
+} from "../../algorithms/pathFinding";
 import * as actions from "../../store/actions";
 
 const PathFinder = props => {
@@ -13,7 +17,9 @@ const PathFinder = props => {
 	const dispatch = useDispatch();
 	const playPathFindingAnimation = animations =>
 		dispatch(actions.playPathFindingAnimation(animations));
-	const stopPathFindingAnimation = () => dispatch(actions.stopPathFindingAnimation());
+	const playMazeAnimation = animations =>
+		dispatch(actions.playMazeAnimation(animations));
+	const stopAnimation = () => dispatch(actions.stopAnimation());
 	const clearWalls = () => dispatch(actions.clearAll());
 
 	return (
@@ -23,12 +29,28 @@ const PathFinder = props => {
 				onClick={() => playPathFindingAnimation(getBFSAnimations(start, target, walls, 25, 20))}
 				disabled={finding}
 			>
-				find
+				BFS
+			</button>
+			<button
+				onClick={() => playPathFindingAnimation(getDFSAnimations(start, target, walls, 25, 20))}
+				disabled={finding}
+			>
+				DFS
+			</button>
+			<button
+				onClick={() =>
+					playMazeAnimation(getMazeAnimations(start, target, 25, 20))
+				}
+				disabled={finding}
+			>
+				Generate Maze
 			</button>
 			<button onClick={clearWalls} disabled={finding}>
 				clear walls
 			</button>
-			<button onClick={stopPathFindingAnimation} disabled={!finding}>stop</button>
+			<button onClick={stopAnimation} disabled={!finding}>
+				stop
+			</button>
 		</div>
 	);
 };

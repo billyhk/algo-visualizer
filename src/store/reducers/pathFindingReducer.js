@@ -1,12 +1,12 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const intitialState = {
-	start: [5, 5],
+	start: [4, 5],
 	target: [16, 15],
 	walls: {},
 	visited: {},
 	path: {},
-	finding: false
+	finding: false,
 };
 
 const setStart = (state, action) => {
@@ -17,6 +17,11 @@ const setStart = (state, action) => {
 const setTarget = (state, action) => {
 	let target = action.node;
 	return { ...state, target };
+};
+
+const setWalls = (state, action) => {
+	let walls = action.walls;
+	return { ...state, walls };
 };
 
 const addWall = (state, action) => {
@@ -57,9 +62,9 @@ const clearVisitedAndPath = (state, action) => {
 };
 
 const setFinding = (state, action) => {
-	let finding = action.finding
-	return {...state, finding }
-}
+	let finding = action.finding;
+	return { ...state, finding };
+};
 
 const reducer = (state = intitialState, action) => {
 	switch (action.type) {
@@ -67,6 +72,8 @@ const reducer = (state = intitialState, action) => {
 			return setStart(state, action);
 		case actionTypes.SET_TARGET:
 			return setTarget(state, action);
+		case actionTypes.SET_WALLS:
+			return setWalls(state, action);
 		case actionTypes.ADD_WALL:
 			return addWall(state, action);
 		case actionTypes.DELETE_WALL:
@@ -76,11 +83,11 @@ const reducer = (state = intitialState, action) => {
 		case actionTypes.ADD_PATH:
 			return addPath(state, action);
 		case actionTypes.CLEAR_ALL:
-			return clearAll(state, action)
+			return clearAll(state, action);
 		case actionTypes.CLEAR_VISITED_AND_PATH:
 			return clearVisitedAndPath(state, action);
 		case actionTypes.SET_FINDING:
-			return setFinding(state, action)
+			return setFinding(state, action);
 		default:
 			return state;
 	}

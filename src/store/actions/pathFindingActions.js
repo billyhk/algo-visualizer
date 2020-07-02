@@ -18,7 +18,8 @@ export const deleteWall = node => {
 
 export const playPathFindingAnimation = animations => {
 	return dispatch => {
-		dispatch(setFinding(true))
+		dispatch(clearVisitedandPath());
+		dispatch(setFinding(true));
 		for (let i = 0; i < animations.length; i++) {
 			let [x, y, type] = animations[i];
 			if (type === "visited") {
@@ -31,24 +32,42 @@ export const playPathFindingAnimation = animations => {
 				let pathTimer = setTimeout(() => {
 					dispatch(addPath([x, y]));
 					clearTimeout(pathTimer);
-				}, 20 * i);
+				}, 25 * i);
 			}
 		}
 		let endFindingTimer = setTimeout(() => {
 			dispatch(setFinding(false));
 			clearTimeout(endFindingTimer);
-		}, 20 * animations.length);
+		}, 25 * animations.length);
 	};
 };
 
-export const stopPathFindingAnimation = () => {
+export const playMazeAnimation = animations => {
+	return dispatch => {
+		dispatch(clearAll());
+		dispatch(setFinding(true));
+		dispatch(setWalls(animations[0]));
+		for (let i = 1; i < animations.length; i++) {
+			let deleteTimer = setTimeout(() => {
+				dispatch(deleteWall(animations[i]));
+				clearTimeout(deleteTimer);
+			}, 40 * i);
+		}
+		let endMazeTimer = setTimeout(() => {
+			dispatch(setFinding(false));
+			clearTimeout(endMazeTimer);
+		}, 40 * animations.length);
+	};
+};
+
+export const stopAnimation = () => {
 	return dispatch => {
 		let highestTimeoutId = setTimeout(";");
 		for (let i = 0; i < highestTimeoutId; i++) {
 			clearTimeout(i);
 		}
-		dispatch(clearVisitedandPath())
-		dispatch(setFinding(false))
+		dispatch(clearVisitedandPath());
+		dispatch(setFinding(false));
 	};
 };
 
@@ -58,6 +77,10 @@ export const clearAll = () => {
 
 export const clearVisitedandPath = () => {
 	return { type: actionTypes.CLEAR_VISITED_AND_PATH };
+};
+
+const setWalls = walls => {
+	return { type: actionTypes.SET_WALLS, walls };
 };
 
 const setFinding = finding => {
