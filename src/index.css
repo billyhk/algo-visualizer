@@ -14,9 +14,21 @@ body {
 	font-size: 1.4rem;
 	box-sizing: border-box;
 	position: relative;
+	background-color: #fafafa;
 	font-family: 'Work Sans', sans-serif;
 	overflow-y: scroll;
-	background-color: #121212;
-	color: #fff;
-	text-shadow: 0 0 0.15em #1da9cc;
+	margin: 0 auto;
 }
+
+
+
+sup, sub {
+	vertical-align: baseline;
+	position: relative;
+	top: -0.4em;
+ }
+ sub { 
+	top: 0.4em; 
+ }
+ 
+ 

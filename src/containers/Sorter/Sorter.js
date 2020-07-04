@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 import BarGraph from "../../components/BarGraph/BarGraph";
 import classes from "./Sorter.module.css";
-import { Slider } from "@material-ui/core";
+import { Slider, Button, Paper, Divider } from "@material-ui/core";
+import Selection from "../../components/UI/Selection/Selection";
 import {
 	getBubbleSortAnimations,
 	getQuickSortAnimations,
@@ -11,7 +12,33 @@ import {
 	getHeapSortAnimations,
 } from "../../algorithms/sorting";
 
+const descriptions = [
+	<p>
+		<span style={{ fontWeight: "600" }}>Bubble sort</span>, is a simple sorting algorithm that
+		repeatedly steps through the list, compares adjacent elements and swaps them if they are in
+		the wrong order.
+	</p>,
+
+	<p>
+		<span style={{ fontWeight: 600 }}>Quick sort</span> is a Divide and Conquer algorithm. It
+		picks an element as pivot and partitions the given array around the picked pivot.
+	</p>,
+
+	<p>
+		Like quick sort, <span style={{ fontWeight: 600 }}>merge sort</span> is a Divide and Conquer
+		algorithm. It divides input array in two halves, calls itself for the two halves and then
+		merges the two sorted halves.
+	</p>,
+
+	<p>
+		<span style={{ fontWeight: 600 }}>Heap sort</span> is a comparison based sorting technique
+		based on a Binary Heap. We first find the maximum element and place it at the end. The same
+		process is repeated for the remaining elements.
+	</p>,
+];
+
 const Sorter = props => {
+	const [current, setCurrent] = useState(0);
 	useEffect(() => {
 		setNewArrayHandler();
 	}, []);
@@ -19,6 +46,10 @@ const Sorter = props => {
 	const setNewArrayHandler = () => {
 		props.setSorted(false);
 		props.setNewArray();
+	};
+
+	const changeDescriptionHandler = index => {
+		setCurrent(index);
 	};
 
 	const sizeChangeHandler = (event, newValue) => {
@@ -31,65 +62,70 @@ const Sorter = props => {
 		props.setAnimationSpeed(Math.abs(newValue - 100));
 	};
 
+	const options = {
+		"Bubble Sort": () => props.playSortingAnimation(getBubbleSortAnimations(props.array)),
+		"Quick Sort": () => props.playSortingAnimation(getQuickSortAnimations(props.array)),
+		"Merge Sort": () => props.playSortingAnimation(getMergeSortAnimations(props.array)),
+		"Heap Sort": () => props.playSortingAnimation(getHeapSortAnimations(props.array)),
+	};
+
 	return (
 		<div className={classes.Sorter}>
-			<div className={classes.Graph}>
-				<BarGraph
-					values={props.array}
-					color="white"
-					activeValues={props.active}
-					sorting={props.sorting}
-				/>
+			<div className={classes.GraphContainer}>
+				<div className={classes.Graph}>
+					<BarGraph values={props.array} activeValues={props.active} sorting={props.sorting} />
+				</div>
 			</div>
 
-			<div className={classes.Controls}>
-				<button onClick={setNewArrayHandler} disabled={props.sorting}>
-					set new
-				</button>
-				<button
-					onClick={() => props.playSortingAnimation(getBubbleSortAnimations(props.array))}
-					disabled={props.sorting}
-				>
-					bubble sort
-				</button>
-				<button
-					onClick={() => props.playSortingAnimation(getQuickSortAnimations(props.array))}
-					disabled={props.sorting}
-				>
-					quick sort
-				</button>
-				<button
-					onClick={() => props.playSortingAnimation(getMergeSortAnimations(props.array))}
-					disabled={props.sorting}
-				>
-					merge sort
-				</button>
-				<button
-					onClick={() => props.playSortingAnimation(getHeapSortAnimations(props.array))}
-					disabled={props.sorting}
-				>
-					heapSort
-				</button>
-				<button onClick={props.stopSortingAnimation} disabled={!props.sorting}>
-					stop
-				</button>
-				<Slider
-					style={{ margin: "10rem 0" }}
-					onChange={sizeChangeHandler}
-					value={props.arraySize}
-					valueLabelDisplay
-					disabled={props.sorting}
-					min={10}
-				/>
-
-				<Slider
-					style={{ margin: "10rem 0" }}
-					onChange={animationSpeedChangeHandler}
-					value={Math.abs(props.animationSpeed - 100)}
-					disabled={props.sorting}
-					min={1}
-				/>
-			</div>
+			<Paper className={classes.ControlsContainer} elevation={10} style={{ borderRadius: 0 }}>
+				<div className={classes.Controls}>
+					<Button
+						onClick={setNewArrayHandler}
+						disabled={props.sorting}
+						color="primary"
+						size="large"
+						variant="outlined"
+						style={{ marginRight: "1rem" }}
+					>
+						set new
+					</Button>
+					<Button
+						onClick={props.stopSortingAnimation}
+						disabled={!props.sorting}
+						color="secondary"
+						size="large"
+						variant="contained"
+						disableElevation
+					>
+						stop
+					</Button>
+					<p className={classes.SliderTitle}>Array Size</p>
+					<Slider
+						onChange={sizeChangeHandler}
+						value={props.arraySize}
+						valueLabelDisplay
+						disabled={props.sorting}
+						min={10}
+					/>
+					<p className={classes.SliderTitle}>Animation Speed</p>
+					<Slider
+						onChange={animationSpeedChangeHandler}
+						value={Math.abs(props.animationSpeed - 100)}
+						disabled={props.sorting}
+						valueLabelDisplay
+						min={1}
+						style={{ marginBottom: "3rem" }}
+					/>
+					<Selection
+						options={options}
+						disabled={props.sorting}
+						onChange={index => changeDescriptionHandler(index)}
+					/>
+					<div className={classes.Description}>
+						<div className={classes.About}>{descriptions[current]}</div>
+					</div>
+				</div>
+			</Paper>
 		</div>
 	);
 };

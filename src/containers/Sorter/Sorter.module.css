@@ -1,20 +1,37 @@
 .Sorter {
-   
    display: grid;
-   grid-template-columns: 2fr 3fr;
-   height: 90vh;
+   grid-template-columns: 1fr 2.2fr;
+   height: 87.5vh;
 
 }
 
-.Controls {
-   background-color: #212121;
-   height: 100%;
+.ControlsContainer {
    grid-column: 1 / 2;
    grid-row: 1 / 2;
-   box-shadow: 0px 8px 9px -5px rgba(0,0,0,0.2),0px 15px 22px 2px rgba(0,0,0,0.14),0px 6px 28px 5px rgba(0,0,0,0.12);
+   box-sizing: border-box;
+}
+
+.Controls {
+   padding: 9rem 7rem;
 }
 
 .Graph {
    height: 100%;
-   padding: 2rem 4rem;
+   padding: 9rem 6rem;
+   padding-bottom: 0;
+   border-bottom: 2px solid #05668d;
+   box-shadow: 0 0 .5em #c3e5f3;
+}
+.GraphContainer {
+   padding-bottom: 10rem;
+}
+
+.SliderTitle {
+   margin: 3rem 1rem 1rem;
+}
+
+.About {
+   margin-top: 3rem;
+   flex: 2.5;
+   line-height: 1.7;
 }
