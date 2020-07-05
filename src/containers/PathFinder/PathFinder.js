@@ -32,8 +32,8 @@ const descriptions = [
 ];
 
 const PathFinder = props => {
-	const [gridX, setGridX] = useState(20);
-	const [gridY, setGridY] = useState(20);
+	const [gridX, setGridX] = useState(0);
+	const [gridY, setGridY] = useState(0);
 	const [current, setCurrent] = useState(0);
 	const start = useSelector(state => state.path.start);
 	const target = useSelector(state => state.path.target);

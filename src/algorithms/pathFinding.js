@@ -62,7 +62,7 @@ export function getDFSAnimations(start, target, walls, width, height) {
 
 export function getAstarAnimations(start, target, walls, width, height) {
 	let animations = []
-	let closedList = []
+	let visited = {}
 	let openList = []
 	let prev = {};
 	start.f = start.g = start.h = 0
@@ -71,10 +71,10 @@ export function getAstarAnimations(start, target, walls, width, height) {
 	
 	while (openList.length > 0) {
 		let node = lowestf(openList)
-		closedList.push(node)
+		visited[node] = true;
 		animations.push([...node, 'visited'])
 		if (nodesAreEqual(node, target)) {
-			console.log('actually worked')
+			addShortestPathAnimations(start, target, prev, animations);
 			return animations
 		}
 
@@ -83,7 +83,7 @@ export function getAstarAnimations(start, target, walls, width, height) {
 		for (let i = 0; i < neighbors.length; i++) {
 
 			let next = neighbors[i]
-			if (nodeInList(closedList, next)) {		
+			if (visited[next]) {		
 				continue;
 			}
 			
@@ -102,11 +102,14 @@ export function getAstarAnimations(start, target, walls, width, height) {
 			if (notBest) {
 				continue
 			}
+			
 			openList.push(next)
+			prev[next] = node
 		}
 	}
 	return animations
 }
+
 
 function lowestf(list) {
 	let low = 0
