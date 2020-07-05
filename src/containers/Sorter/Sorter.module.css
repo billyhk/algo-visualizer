@@ -9,21 +9,22 @@
    grid-column: 1 / 2;
    grid-row: 1 / 2;
    box-sizing: border-box;
+   padding: 7rem
 }
 
 .Controls {
-   padding: 9rem 7rem;
+   
 }
 
 .Graph {
    height: 100%;
-   padding: 9rem 6rem;
+   padding: 9rem;
    padding-bottom: 0;
    border-bottom: 2px solid #05668d;
    box-shadow: 0 0 .5em #c3e5f3;
 }
 .GraphContainer {
-   padding-bottom: 10rem;
+   padding-bottom: 9rem;
 }
 
 .SliderTitle {
@@ -32,6 +33,5 @@
 
 .About {
    margin-top: 3rem;
-   flex: 2.5;
    line-height: 1.7;
 }

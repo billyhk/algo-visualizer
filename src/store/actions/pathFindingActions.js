@@ -17,7 +17,8 @@ export const deleteWall = node => {
 };
 
 export const playPathFindingAnimation = animations => {
-	return dispatch => {
+	return (dispatch, getState) => {
+		const animationSpeed = getState().path.animationSpeed;
 		dispatch(clearVisitedandPath());
 		dispatch(setFinding(true));
 		for (let i = 0; i < animations.length; i++) {
@@ -26,24 +27,25 @@ export const playPathFindingAnimation = animations => {
 				let visitedTimer = setTimeout(() => {
 					dispatch(addVisited([x, y]));
 					clearTimeout(visitedTimer);
-				}, 20 * i);
+				}, animationSpeed * i);
 			}
 			if (type === "path") {
 				let pathTimer = setTimeout(() => {
 					dispatch(addPath([x, y]));
 					clearTimeout(pathTimer);
-				}, 25 * i);
+				}, animationSpeed * 1.25 * i);
 			}
 		}
 		let endFindingTimer = setTimeout(() => {
 			dispatch(setFinding(false));
 			clearTimeout(endFindingTimer);
-		}, 25 * animations.length);
+		}, animationSpeed * 1.25 * animations.length);
 	};
 };
 
 export const playMazeAnimation = animations => {
-	return dispatch => {
+	return (dispatch, getState) => {
+		const animationSpeed = getState().path.animationSpeed;
 		dispatch(clearAll());
 		dispatch(setFinding(true));
 		dispatch(setWalls(animations[0]));
@@ -51,12 +53,12 @@ export const playMazeAnimation = animations => {
 			let deleteTimer = setTimeout(() => {
 				dispatch(deleteWall(animations[i]));
 				clearTimeout(deleteTimer);
-			}, 40 * i);
+			}, animationSpeed * 2 * i);
 		}
 		let endMazeTimer = setTimeout(() => {
 			dispatch(setFinding(false));
 			clearTimeout(endMazeTimer);
-		}, 40 * animations.length);
+		}, animationSpeed * 2 * animations.length);
 	};
 };
 
@@ -77,6 +79,10 @@ export const clearAll = () => {
 
 export const clearVisitedandPath = () => {
 	return { type: actionTypes.CLEAR_VISITED_AND_PATH };
+};
+
+export const setPathSpeed = speed => {
+	return { type: actionTypes.SET_PATH_SPEED, speed };
 };
 
 const setWalls = walls => {

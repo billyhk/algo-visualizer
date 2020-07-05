@@ -10,8 +10,8 @@ const Node = props => {
 		if (
 			props.mouseDown &&
 			!(
-				type === "start" ||
-				type === "target" ||
+				props.start ||
+				props.target ||
 				type === "wall" ||
 				props.draggingStart ||
 				props.draggingTarget
@@ -20,20 +20,20 @@ const Node = props => {
 			props.makeWall();
 		}
 
-		if (props.draggingStart && !(type === "target" || type === "wall")) {
+		if (props.draggingStart && !(props.target || type === "wall")) {
 			props.makeStart();
 		}
 
-		if (props.draggingTarget && !(type === "start" || type === "wall")) {
+		if (props.draggingTarget && !(props.start || type === "wall")) {
 			props.makeTarget();
 		}
 	};
 
 	const onMouseDownHandler = e => {
 		e.preventDefault();
-		if (type === "start") {
+		if (props.start) {
 			props.setDraggingStartTrue();
-		} else if (type === "target") {
+		} else if (props.target) {
 			props.setDraggingTargetTrue();
 		} else if (!type === "wall") {
 			props.makeWall();
@@ -47,32 +47,45 @@ const Node = props => {
 		}
 	};
 
-	let fill = "white";
 	let icon = null;
+	if (props.start) {
+		icon = (
+			<StartIcon
+				style={{ color: type === "path" ? "#fafafa" : "#05668d", fontSize: "2.5rem" }}
+			/>
+		);
+	} else if (props.target) {
+		icon = (
+			<TargetIcon
+				style={{ color: type === "path" ? "#fafafa" : "#EE4266", fontSize: "2.5rem" }}
+			/>
+		);
+	}
+
+	let fill = "#fafafa";
+	let border = "none";
 	switch (type) {
-		case "start":
-			icon = <StartIcon style={{ color: "green", fontSize: "3rem" }} />;
-			break;
-		case "target":
-			icon = <TargetIcon style={{ color: "red", fontSize: "3rem" }} />;
-			break;
 		case "wall":
-			fill = "black";
+			fill = "#e0e0e0";
+			border = "1px ridge #9e9e9e";
 			break;
 		case "path":
-			fill = "lightBlue";
+			fill = "#05668d";
 			break;
 		case "visited":
-			fill = "gray";
+			fill = "#c3e5f3";
+			border = "1px solid #fafafa";
 			break;
 		default:
 	}
 
 	const nodeStyle = {
 		backgroundColor: fill,
-		height: "3rem",
-		width: "3rem",
-		transition: 'all .1s ease-in'
+		border: border,
+		borderRadius: "3px",
+		height: "25px",
+		width: "25px",
+		transition: "all .1s ease-in",
 	};
 
 	return (

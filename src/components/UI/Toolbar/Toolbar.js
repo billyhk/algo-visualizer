@@ -5,17 +5,9 @@ import { useDispatch } from "react-redux";
 import * as actions from "../../../store/actions";
 
 const Toolbar = props => {
-	const dispatch = useDispatch();
-	const stopAnimation = () => dispatch(actions.stopAnimation());
-	const stopSortingAnimation = () => dispatch(actions.stopSortingAnimation());
-
-	const changePageHandler = () => {
-		stopAnimation();
-		stopSortingAnimation();
-	};
 	return (
 		<nav className={classes.Toolbar}>
-			<Link to="/sorting" style={{ outline: "none" }} onClick={changePageHandler}>
+			<Link to="/sorting" style={{ outline: "none" }}>
 				<div className={classes.Logo}>
 					<svg
 						width="110"
@@ -39,7 +31,6 @@ const Toolbar = props => {
 
 			<div className={classes.LinksContainer}>
 				<NavLink
-					onClick={changePageHandler}
 					className={classes.Link}
 					to="/sorting"
 					activeStyle={{ borderBottom: ".3rem solid #EE4266" }}
@@ -47,7 +38,6 @@ const Toolbar = props => {
 					Sorting
 				</NavLink>
 				<NavLink
-					onClick={changePageHandler}
 					className={classes.Link}
 					to="/path-finding"
 					activeStyle={{ borderBottom: ".3rem solid #EE4266" }}
@@ -55,7 +45,6 @@ const Toolbar = props => {
 					Path Finding
 				</NavLink>
 				<NavLink
-					onClick={changePageHandler}
 					className={classes.Link}
 					to="/something"
 					activeStyle={{ borderBottom: ".3rem solid #EE4266" }}

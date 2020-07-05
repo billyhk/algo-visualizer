@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions";
 import BarGraph from "../../components/BarGraph/BarGraph";
 import classes from "./Sorter.module.css";
-import { Slider, Button, Paper, Divider } from "@material-ui/core";
+import { Slider, Button, Paper } from "@material-ui/core";
 import Selection from "../../components/UI/Selection/Selection";
 import {
 	getBubbleSortAnimations,
@@ -41,6 +41,9 @@ const Sorter = props => {
 	const [current, setCurrent] = useState(0);
 	useEffect(() => {
 		setNewArrayHandler();
+		return () => {
+			props.stopSortingAnimation();
+		};
 	}, []);
 
 	const setNewArrayHandler = () => {
@@ -79,6 +82,7 @@ const Sorter = props => {
 
 			<Paper className={classes.ControlsContainer} elevation={10} style={{ borderRadius: 0 }}>
 				<div className={classes.Controls}>
+					<h1 style={{marginBottom:'3rem'}} >Sorting</h1>
 					<Button
 						onClick={setNewArrayHandler}
 						disabled={props.sorting}
@@ -121,9 +125,8 @@ const Sorter = props => {
 						disabled={props.sorting}
 						onChange={index => changeDescriptionHandler(index)}
 					/>
-					<div className={classes.Description}>
-						<div className={classes.About}>{descriptions[current]}</div>
-					</div>
+
+					<div className={classes.About}>{descriptions[current]}</div>
 				</div>
 			</Paper>
 		</div>

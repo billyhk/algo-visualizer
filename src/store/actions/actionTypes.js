@@ -17,3 +17,4 @@ export const ADD_PATH = "ADD_PATH"
 export const CLEAR_ALL = 'CLEAR_ALL'
 export const CLEAR_VISITED_AND_PATH = 'CLEAR_VISITED_AND_PATH'
 export const SET_FINDING = 'SET_FINDING'
+export const SET_PATH_SPEED = 'SET_PATH_SPEED'

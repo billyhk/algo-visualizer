@@ -7,6 +7,7 @@ const intitialState = {
 	visited: {},
 	path: {},
 	finding: false,
+	animationSpeed: 20
 };
 
 const setStart = (state, action) => {
@@ -66,6 +67,10 @@ const setFinding = (state, action) => {
 	return { ...state, finding };
 };
 
+const setPathSpeed = (state, action) => {
+	return {...state, animationSpeed: action.speed }
+}
+
 const reducer = (state = intitialState, action) => {
 	switch (action.type) {
 		case actionTypes.SET_START:
@@ -88,6 +93,8 @@ const reducer = (state = intitialState, action) => {
 			return clearVisitedAndPath(state, action);
 		case actionTypes.SET_FINDING:
 			return setFinding(state, action);
+		case actionTypes.SET_PATH_SPEED:
+			return setPathSpeed(state, action)
 		default:
 			return state;
 	}

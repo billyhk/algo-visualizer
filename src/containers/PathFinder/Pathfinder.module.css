@@ -1,0 +1,38 @@
+.PathFinder {
+   display: grid;
+   grid-template-columns: 1fr 2.2fr;
+   height: 87.5vh;
+}
+
+.Grid {
+   height: 100%;
+   background-color: #c3e5f3;
+   width: max-content;
+   height: max-content;
+   border: 1px solid #c3e5f3;
+   color: #9e9e9e
+}
+
+.GridContainer {
+   height: 100%;
+   padding: 9rem;
+   width: 100%;
+   height: 87.5vh;
+
+}
+
+.ControlsContainer {
+   grid-column: 1 / 2;
+   grid-row: 1 / 2;
+   box-sizing: border-box;
+   padding: 7rem 7rem;
+}
+
+.About {
+   margin-top: 3rem;
+   line-height: 1.7;
+}
+
+.SliderTitle {
+   margin: 3rem 1rem 1rem;
+} 

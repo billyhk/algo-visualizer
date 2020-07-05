@@ -1,5 +1,7 @@
 //BFS
 
+import { Children } from "react";
+
 export function getBFSAnimations(start, target, walls, width, height) {
 	let animations = [];
 	let queue = [start];
@@ -58,6 +60,84 @@ export function getDFSAnimations(start, target, walls, width, height) {
 
 //A*
 
+export function getAstarAnimations(start, target, walls, width, height) {
+	let animations = []
+	let closedList = []
+	let openList = []
+	let prev = {};
+	start.f = start.g = start.h = 0
+	target.f = target.g = target.h = 0
+	openList.push(start)
+	
+	while (openList.length > 0) {
+		let node = lowestf(openList)
+		closedList.push(node)
+		animations.push([...node, 'visited'])
+		if (nodesAreEqual(node, target)) {
+			console.log('actually worked')
+			return animations
+		}
+
+		let neighbors = getPossibleNeighbors(node, walls, width, height);
+		
+		for (let i = 0; i < neighbors.length; i++) {
+
+			let next = neighbors[i]
+			if (nodeInList(closedList, next)) {		
+				continue;
+			}
+			
+			next.g = node.g + 1
+			next.h = heuristic(next, target)
+			next.f = next.g + next.h
+
+			let notBest = false
+			if (openList.length > 0) {
+				for (let j = 0; j < openList.length; j++) {
+					if (nodesAreEqual(next, openList[j]) && next.g >= openList[j].g) {
+						notBest = true
+					}
+				}
+			}	
+			if (notBest) {
+				continue
+			}
+			openList.push(next)
+		}
+	}
+	return animations
+}
+
+function lowestf(list) {
+	let low = 0
+	for (let i = 0; i < list.length; i++) {
+		if (list[i].f < list[low].f) {
+			low = i
+		}
+	}
+	let node = list.splice(low, 1)
+	return node[0]
+}
+
+function nodeInList(list, node) {
+	for (let i = 0; i< list.length; i++) {
+		if (nodesAreEqual(list[i], node)) {
+			return true
+		}
+	}
+	return false
+}
+
+function heuristic(node1, node2) {
+	let d1 = Math.abs(node1[0] - node2[0]);
+	let d2 = Math.abs(node1[1] - node2[1]);
+	return d1 + d2;
+}
+
+function f(node, start, target) {
+	return heuristic(node, start) + heuristic(node, target);
+}
+
 function getPossibleNeighbors(node, walls, width, height) {
 	let possibleNeighbors = [];
 	//check right neighbor
@@ -105,7 +185,7 @@ function nodesAreEqual(node1, node2) {
 
 export function getMazeAnimations(start, target, width, height) {
 	let animations = [];
-	let walls = {}
+	let walls = {};
 	for (let i = 1; i < width; i += 2) {
 		for (let j = 0; j < height; j++) {
 			walls[[i, j]] = true;
@@ -117,8 +197,8 @@ export function getMazeAnimations(start, target, width, height) {
 			walls[[j, i]] = true;
 		}
 	}
-	walls[start] = false
-	walls[target] = false
+	walls[start] = false;
+	walls[target] = false;
 	animations.push(walls);
 
 	let startNode = [0, 0];
@@ -135,13 +215,13 @@ function getMazeAnimationsHelper(node, width, height, animations, visited) {
 		if (!visited[next]) {
 			let wall;
 			if (node[0] - next[0] === -2) {
-				wall = [node[0] + 1, node[1]]
+				wall = [node[0] + 1, node[1]];
 			} else if (node[0] - next[0] === 2) {
-				wall = [node[0] - 1, node[1]]
+				wall = [node[0] - 1, node[1]];
 			} else if (node[1] - next[1] === -2) {
-				wall = [node[0], node[1] + 1]
+				wall = [node[0], node[1] + 1];
 			} else {
-				wall = [node[0], node[1] - 1]
+				wall = [node[0], node[1] - 1];
 			}
 			animations.push(wall);
 			getMazeAnimationsHelper(next, width, height, animations, visited);
@@ -171,8 +251,8 @@ function getPossibleMazeNeighbors(node, width, height) {
 	if (topNeighbor[1] < height) {
 		possibleNeighbors.push(topNeighbor);
 	}
-	shuffle(possibleNeighbors)
-	return possibleNeighbors
+	shuffle(possibleNeighbors);
+	return possibleNeighbors;
 }
 
 function shuffle(array) {

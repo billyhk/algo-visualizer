@@ -76,11 +76,7 @@ const Grid = props => {
 
 	grid = grid.map(node => {
 		let type;
-		if (nodesAreEqual(start, node)) {
-			type = "start";
-		} else if (nodesAreEqual(target, node)) {
-			type = "target";
-		} else if (walls[node]) {
+		if (walls[node]) {
 			type = "wall";
 		} else if (path[node]) {
 			type = "path";
@@ -93,6 +89,8 @@ const Grid = props => {
 		return (
 			<Node
 				type={type}
+				start={nodesAreEqual(start, node)}
+				target={nodesAreEqual(target, node)}
 				makeStart={() => setStart([node[0], node[1]])}
 				makeTarget={() => setTarget([node[0], node[1]])}
 				makeWall={() => addWall(node)}

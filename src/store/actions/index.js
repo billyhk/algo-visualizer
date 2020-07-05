@@ -16,5 +16,6 @@ export {
 	playMazeAnimation,
 	stopAnimation,
 	clearAll,
-	clearVisitedandPath
+	clearVisitedandPath,
+	setPathSpeed
 } from './pathFindingActions'
