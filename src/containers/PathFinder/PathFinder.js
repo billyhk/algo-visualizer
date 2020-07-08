@@ -80,7 +80,7 @@ const PathFinder = props => {
 	};
 
 	const animationSpeedChangeHandler = (event, newValue) => {
-		setAnimationSpeed(Math.abs(newValue - 140));
+		setAnimationSpeed(Math.abs(newValue - 120));
 	};
 
 	const options = {
@@ -129,7 +129,7 @@ const PathFinder = props => {
 					<p className={classes.SliderTitle}>Animation Speed</p>
 					<Slider
 						onChange={animationSpeedChangeHandler}
-						value={Math.abs(animationSpeed - 140)}
+						value={Math.abs(animationSpeed - 120)}
 						disabled={finding}
 						valueLabelDisplay
 						min={1}
