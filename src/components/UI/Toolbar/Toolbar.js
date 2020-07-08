@@ -8,9 +8,10 @@ const Toolbar = props => {
 	return (
 		<nav className={classes.Toolbar}>
 			<Link to="/sorting" style={{ outline: "none" }}>
-				<div className={classes.Logo}>
+				<div>
 					<svg
-						width="110"
+						className={classes.Logo}
+						width="90"
 						height="31"
 						viewBox="0 0 153 61"
 						fill="none"

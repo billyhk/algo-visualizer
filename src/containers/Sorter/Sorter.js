@@ -62,7 +62,7 @@ const Sorter = props => {
 	};
 
 	const animationSpeedChangeHandler = (event, newValue) => {
-		props.setAnimationSpeed(Math.abs(newValue - 100));
+		props.setAnimationSpeed(Math.abs(newValue - 110));
 	};
 
 	const options = {
@@ -72,6 +72,7 @@ const Sorter = props => {
 		"Heap Sort": () => props.playSortingAnimation(getHeapSortAnimations(props.array)),
 	};
 
+	let media = window.matchMedia("(max-width: 700px)");
 	return (
 		<div className={classes.Sorter}>
 			<div className={classes.GraphContainer}>
@@ -79,17 +80,20 @@ const Sorter = props => {
 					<BarGraph values={props.array} activeValues={props.active} sorting={props.sorting} />
 				</div>
 			</div>
-
-			<Paper className={classes.ControlsContainer} elevation={10} style={{ borderRadius: 0 }}>
+			<Paper
+				className={classes.ControlsContainer}
+				elevation={10}
+				style={{ borderRadius: 0, paddingBottom: media.matches ? "4rem" : "0" }}
+			>
 				<div className={classes.Controls}>
-					<h1 style={{marginBottom:'3rem'}} >Sorting</h1>
+					<h1 style={{ marginBottom: "3rem" }}>Sorting</h1>
 					<Button
 						onClick={setNewArrayHandler}
 						disabled={props.sorting}
 						color="primary"
 						size="large"
 						variant="outlined"
-						style={{ marginRight: "1rem" }}
+						style={{ marginRight: ".8rem" }}
 					>
 						set new
 					</Button>
@@ -114,7 +118,7 @@ const Sorter = props => {
 					<p className={classes.SliderTitle}>Animation Speed</p>
 					<Slider
 						onChange={animationSpeedChangeHandler}
-						value={Math.abs(props.animationSpeed - 100)}
+						value={Math.abs(props.animationSpeed - 110)}
 						disabled={props.sorting}
 						valueLabelDisplay
 						min={1}

@@ -27,19 +27,19 @@ export const playPathFindingAnimation = animations => {
 				let visitedTimer = setTimeout(() => {
 					dispatch(addVisited([x, y]));
 					clearTimeout(visitedTimer);
-				}, animationSpeed * i);
+				}, 800 + animationSpeed * i);
 			}
 			if (type === "path") {
 				let pathTimer = setTimeout(() => {
 					dispatch(addPath([x, y]));
 					clearTimeout(pathTimer);
-				}, animationSpeed * i);
+				}, 1800 + animationSpeed * i);
 			}
 		}
 		let endFindingTimer = setTimeout(() => {
 			dispatch(setFinding(false));
 			clearTimeout(endFindingTimer);
-		}, animationSpeed * animations.length);
+		}, 1800 + animationSpeed * animations.length);
 	};
 };
 
@@ -53,12 +53,12 @@ export const playMazeAnimation = animations => {
 			let deleteTimer = setTimeout(() => {
 				dispatch(deleteWall(animations[i]));
 				clearTimeout(deleteTimer);
-			}, 400 + animationSpeed * 1.5 * i);
+			}, 800 + animationSpeed * 1.5 * i);
 		}
 		let endMazeTimer = setTimeout(() => {
 			dispatch(setFinding(false));
 			clearTimeout(endMazeTimer);
-		}, 400 + animationSpeed * 1.5 * animations.length);
+		}, 800 + animationSpeed * 1.5 * animations.length);
 	};
 };
 

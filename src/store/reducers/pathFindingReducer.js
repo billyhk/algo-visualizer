@@ -7,7 +7,7 @@ const intitialState = {
 	visited: {},
 	path: {},
 	finding: false,
-	animationSpeed: 20
+	animationSpeed: 50
 };
 
 const setStart = (state, action) => {

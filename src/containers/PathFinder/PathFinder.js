@@ -5,7 +5,7 @@ import {
 	getBFSAnimations,
 	getDFSAnimations,
 	getMazeAnimations,
-	getAstarAnimations
+	getAstarAnimations,
 } from "../../algorithms/pathFinding";
 import * as actions from "../../store/actions";
 import classes from "./Pathfinder.module.css";
@@ -14,8 +14,8 @@ import Selection from "../../components/UI/Selection/Selection";
 
 const descriptions = [
 	<p>
-		The <span style={{ fontWeight: "600" }}>A* search</span> algorithm introduces a heuristic into a
-		regular graph-searching algorithm, essentially planning ahead at each step so a more optimal
+		The <span style={{ fontWeight: "600" }}>A* search</span> algorithm introduces a heuristic into
+		a regular graph-searching algorithm, essentially planning ahead at each step so a more optimal
 		decision is made. This algorithm guarantees the shortest path possible.
 	</p>,
 	<p>
@@ -52,21 +52,27 @@ const PathFinder = props => {
 	const setAnimationSpeed = speed => dispatch(actions.setPathSpeed(speed));
 
 	useEffect(() => {
-		setGrid()
+		setGrid();
 		window.addEventListener("resize", setGrid);
 		return () => {
-			clearWalls()
+			clearWalls();
 			stopAnimation();
 			window.removeEventListener("resize", setGrid);
 		};
 	}, []);
 
+	let nodeWidth = 25;
+	let media = window.matchMedia("(max-width: 700px)");
+	if (media.matches) {
+		nodeWidth = 15;
+	}
+
 	const setGrid = () => {
 		let el = document.getElementById("grid");
 		let width = el.offsetWidth;
 		let height = el.offsetHeight;
-		let x = Math.floor(width / 25);
-		let y = Math.floor(height / 25);
+		let x = Math.floor(width / nodeWidth) - 1;
+		let y = Math.floor(height / nodeWidth) - 1;
 		let start = [Math.floor(x / 5), Math.floor(y / 5)];
 		let target = [Math.floor((4 * x) / 5), Math.floor((4 * y) / 5)];
 		setStart(start);
@@ -94,16 +100,27 @@ const PathFinder = props => {
 
 	return (
 		<div className={classes.PathFinder}>
-			<Paper elevation={10} style={{ borderRadius: 0 }} className={classes.ControlsContainer}>
+			<div className={classes.GridContainer}>
+				<div style={{ height: "100%" }} id="grid">
+					<div className={classes.Grid}>
+						<Grid width={gridX} height={gridY} />
+					</div>
+				</div>
+			</div>
+			<Paper
+				elevation={10}
+				style={{ borderRadius: 0, marginTop: media.matches ? '.5rem' : '0', paddingBottom: media.matches ? '4rem' : '0'}}
+				className={classes.ControlsContainer}
+			>
 				<div>
-					<h1 style={{marginBottom:'3rem'}} >Path Finding</h1>
+					<h1 style={{ marginBottom: "3rem" }}>Path Finding</h1>
 					<Button
 						variant="outlined"
 						color="primary"
 						size="large"
 						onClick={() => playMazeAnimation(getMazeAnimations(start, target, gridX, gridY))}
 						disabled={finding}
-						style={{ marginRight: "1rem" }}
+						style={{ marginRight: ".8rem" }}
 					>
 						Generate Maze
 					</Button>
@@ -113,7 +130,7 @@ const PathFinder = props => {
 						size="large"
 						onClick={clearWalls}
 						disabled={finding}
-						style={{ marginRight: "1rem" }}
+						style={{ marginRight: ".8rem" }}
 					>
 						clear
 					</Button>
@@ -144,13 +161,6 @@ const PathFinder = props => {
 
 				<div className={classes.About}>{descriptions[current]}</div>
 			</Paper>
-			<div className={classes.GridContainer}>
-				<div style={{ height: "100%" }} id="grid">
-					<div className={classes.Grid}>
-						<Grid width={gridX} height={gridY} />
-					</div>
-				</div>
-			</div>
 		</div>
 	);
 };

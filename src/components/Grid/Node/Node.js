@@ -1,10 +1,10 @@
 import React from "react";
 import TargetIcon from "@material-ui/icons/MyLocation";
 import StartIcon from "@material-ui/icons/TripOrigin";
+import classes from './Node.module.css'
 
 const Node = props => {
 	const { type } = props;
-	console.log('render node')
 	const onMouseOverHandler = e => {
 		e.preventDefault();
 		if (
@@ -47,17 +47,23 @@ const Node = props => {
 		}
 	};
 
+	let nodeWidth = 25;
+		let media = window.matchMedia("(max-width: 700px)");
+		if (media.matches) {
+			nodeWidth = 15;
+		}
+
 	let icon = null;
 	if (props.start) {
 		icon = (
 			<StartIcon
-				style={{ color: type === "path" ? "#fafafa" : "#05668d", fontSize: "2.5rem" }}
+				style={{ color: type === "path" ? "#fafafa" : "#05668d", fontSize: `${nodeWidth}px` }}
 			/>
 		);
 	} else if (props.target) {
 		icon = (
 			<TargetIcon
-				style={{ color: type === "path" ? "#fafafa" : "#EE4266", fontSize: "2.5rem" }}
+				style={{ color: type === "path" ? "#fafafa" : "#EE4266", fontSize: `${nodeWidth}px` }}
 			/>
 		);
 	}
@@ -79,16 +85,19 @@ const Node = props => {
 		default:
 	}
 
+	
+
 	const nodeStyle = {
 		backgroundColor: fill,
 		border: border,
 		borderRadius: "3px",
-		height: "25px",
-		width: "25px",
-		transition: "all .3s ease-in",
+		height: nodeWidth + 'px',
+		width: nodeWidth + 'px',
+		transition: "all .1s ease-in",
 	};
 	return (
 		<div
+			className={classes.Node}
 			style={nodeStyle}
 			onMouseOver={onMouseOverHandler}
 			onMouseDown={onMouseDownHandler}

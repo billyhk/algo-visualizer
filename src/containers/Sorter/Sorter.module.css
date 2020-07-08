@@ -5,6 +5,8 @@
 
 }
 
+
+
 .ControlsContainer {
    grid-column: 1 / 2;
    grid-row: 1 / 2;
@@ -34,4 +36,23 @@
 .About {
    margin-top: 3rem;
    line-height: 1.7;
+}
+
+@media only screen and (max-width: 1000px) {
+   .Sorter {
+      display: block;
+   }
+   .GraphContainer {
+      height: 40rem;
+      padding-bottom: 2rem;
+
+   }
+   .Graph {
+      padding: 2rem 4rem;
+      padding-bottom: 0;
+   }
+
+   .ControlsContainer {
+      padding: 2rem;
+   }
 }

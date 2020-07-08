@@ -14,19 +14,19 @@ export const playSortingAnimation = animations => {
 				let activeTimer = setTimeout(() => {
 					dispatch(setActive([a, b]));
 					clearTimeout(activeTimer);
-				}, 100 + animationSpeed * i);
+				}, 800 + animationSpeed * i);
 			}
 			if (type === "swap") {
 				let swapTimer = setTimeout(() => {
 					dispatch(swapValues(a, b));
 					clearTimeout(swapTimer);
-				}, 100 + animationSpeed * i);
+				}, 800 + animationSpeed * i);
 			}
 			if (type === "replace") {
 				let replaceTimer = setTimeout(() => {
 					dispatch(replaceValue(a, b));
 					clearTimeout(replaceTimer);
-				}, 100 + animationSpeed * i);
+				}, 800 + animationSpeed * i);
 			}
 		}
 		let endSortingTimer = setTimeout(() => {
@@ -34,7 +34,7 @@ export const playSortingAnimation = animations => {
 			dispatch(setActive([]));
 			dispatch(setSorted(true))
 			clearTimeout(endSortingTimer);
-		}, 100 + animationSpeed * animations.length);
+		}, 800 + animationSpeed * animations.length);
 	};
 };
 

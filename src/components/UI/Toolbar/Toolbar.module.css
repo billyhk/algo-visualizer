@@ -10,6 +10,7 @@
 	position: sticky;
 	z-index: 1000;
 	top: 0;
+	font-size: 1.3rem;
 }
 
 .Logo {
@@ -36,4 +37,16 @@
 
 .Link:hover {
 	border-bottom: 0.3rem #ee4266 solid;
+}
+
+@media only screen and (max-width: 1000px) {
+   
+   .Toolbar {
+		padding: 0 2rem;
+		height: 11vh;
+	}
+
+	.Logo {
+		width: 70px;
+	}
 }
