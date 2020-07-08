@@ -33,13 +33,13 @@ export const playPathFindingAnimation = animations => {
 				let pathTimer = setTimeout(() => {
 					dispatch(addPath([x, y]));
 					clearTimeout(pathTimer);
-				}, animationSpeed * 1.25 * i);
+				}, animationSpeed * i);
 			}
 		}
 		let endFindingTimer = setTimeout(() => {
 			dispatch(setFinding(false));
 			clearTimeout(endFindingTimer);
-		}, animationSpeed * 1.25 * animations.length);
+		}, animationSpeed * animations.length);
 	};
 };
 
@@ -53,12 +53,12 @@ export const playMazeAnimation = animations => {
 			let deleteTimer = setTimeout(() => {
 				dispatch(deleteWall(animations[i]));
 				clearTimeout(deleteTimer);
-			}, animationSpeed * 2 * i);
+			}, 400 + animationSpeed * 1.5 * i);
 		}
 		let endMazeTimer = setTimeout(() => {
 			dispatch(setFinding(false));
 			clearTimeout(endMazeTimer);
-		}, animationSpeed * 2 * animations.length);
+		}, 400 + animationSpeed * 1.5 * animations.length);
 	};
 };
 

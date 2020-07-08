@@ -55,6 +55,7 @@ const PathFinder = props => {
 		setGrid()
 		window.addEventListener("resize", setGrid);
 		return () => {
+			clearWalls()
 			stopAnimation();
 			window.removeEventListener("resize", setGrid);
 		};
@@ -79,7 +80,7 @@ const PathFinder = props => {
 	};
 
 	const animationSpeedChangeHandler = (event, newValue) => {
-		setAnimationSpeed(Math.abs(newValue - 120));
+		setAnimationSpeed(Math.abs(newValue - 140));
 	};
 
 	const options = {
@@ -128,7 +129,7 @@ const PathFinder = props => {
 					<p className={classes.SliderTitle}>Animation Speed</p>
 					<Slider
 						onChange={animationSpeedChangeHandler}
-						value={Math.abs(animationSpeed - 120)}
+						value={Math.abs(animationSpeed - 140)}
 						disabled={finding}
 						valueLabelDisplay
 						min={1}

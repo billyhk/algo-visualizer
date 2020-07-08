@@ -4,7 +4,7 @@ import StartIcon from "@material-ui/icons/TripOrigin";
 
 const Node = props => {
 	const { type } = props;
-
+	console.log('render node')
 	const onMouseOverHandler = e => {
 		e.preventDefault();
 		if (
@@ -85,9 +85,8 @@ const Node = props => {
 		borderRadius: "3px",
 		height: "25px",
 		width: "25px",
-		transition: "all .1s ease-in",
+		transition: "all .3s ease-in",
 	};
-
 	return (
 		<div
 			style={nodeStyle}

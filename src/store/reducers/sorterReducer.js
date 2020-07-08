@@ -6,7 +6,7 @@ const initialState = {
 	sorted: false,
 	arraySize: 50,
 	active: [],
-	animationSpeed: 50,
+	animationSpeed: 40,
 };
 
 const setNewArray = (state, action) => {

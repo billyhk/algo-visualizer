@@ -21,7 +21,7 @@ const Grid = props => {
 	const addWall = useCallback(node => dispatch(actions.addWall(node)), [dispatch]);
 	const deleteWall = useCallback(node => dispatch(actions.deleteWall(node)), [dispatch]);
 	const clearVisitedandPath = () => dispatch(actions.clearVisitedandPath());
-
+	
 	const gridStyle = {
 		display: "grid",
 		gridTemplateColumns: `repeat(${props.width}, max-content)`,
