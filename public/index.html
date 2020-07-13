@@ -1,22 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap" rel="stylesheet"> 
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>AlgoV</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#000000" />
+		<meta name="description" content="Web site created using create-react-app" />
+		<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+		<title>AlgoV</title>
+	</head>
+	<body>
+		<noscript>You need to enable JavaScript to run this app.</noscript>
+		<div id="root"></div>
+	</body>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+	<script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-analytics.js"></script>
+
+	<script>
+		// Your web app's Firebase configuration
+		var firebaseConfig = {
+			apiKey: "AIzaSyB_9Xs_pgZRefD830D_cUel3WW-TiI3pZA",
+			authDomain: "algo-v.firebaseapp.com",
+			databaseURL: "https://algo-v.firebaseio.com",
+			projectId: "algo-v",
+			storageBucket: "algo-v.appspot.com",
+			messagingSenderId: "338914321461",
+			appId: "1:338914321461:web:7956d233118327033bbd7c",
+			measurementId: "G-2D89WQHQ77",
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		firebase.analytics();
+	</script>
 </html>
