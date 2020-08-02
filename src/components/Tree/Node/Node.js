@@ -3,15 +3,15 @@ import NodeIcon from "@material-ui/icons/TripOrigin";
 
 const Node = props => {
 	const style = {
-		width: "2rem",
-		height: "2rem",
-      backgroundColor: "#fafafa",
-      border: `.4rem solid ${props.fill}`,
+		width: `${props.size}px`,
+		height: `${props.size}px`,
+      backgroundColor: props.visited ? "#ee426799" : "#fafafa",
+      border: `${props.size / 5.5}px solid ${props.visited ? "#EE4266" : "#05668d"}`,
 		borderRadius: "1000px",
       display: "flex",
       justifyContent: "center",
 		alignItems: "center",
-		transition: "all .2s ease"
+		transition: "border backgroundColor .3s ease-out"
 	};
 
 	return (

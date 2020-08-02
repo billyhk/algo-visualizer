@@ -24,6 +24,12 @@ const descriptions = [
 		backtracking. Unlike DFS, it does not guarantee the shortest path, but rather if such a path
 		even exist
 	</p>,
+	<p>
+		<span style={{ fontWeight: 600 }}>Depth first search</span> is a traversing algorithm which
+		uses the idea of backtracking. It explores all the nodes by going forward if possible or uses
+		backtracking. Unlike DFS, it does not guarantee the shortest path, but rather if such a path
+		even exist
+	</p>,
 ];
 
 const Traversing = props => {
@@ -35,20 +41,21 @@ const Traversing = props => {
 	const dispatch = useDispatch();
 	const setHeight = newHeight => dispatch(actions.setHeight(newHeight));
 	const setAnimationSpeed = speed => dispatch(actions.setTraverseSpeed(speed));
-	const playTraversingAnimation = animations => dispatch(actions.playTraversingAnimation(animations))
+	const playTraversingAnimation = animations =>
+		dispatch(actions.playTraversingAnimation(animations));
 	const stopTraversingAnimation = () => dispatch(actions.stopTraversingAnimation());
-	const clearTraversed = () => dispatch(actions.clearTraversed())
+	const clearTraversed = () => dispatch(actions.clearTraversed());
 
 	useEffect(() => {
 		return () => {
-			stopTraversingAnimation()
-			clearTraversed()
-		}
-	}, [])
+			stopTraversingAnimation();
+			clearTraversed();
+		};
+	}, []);
 
 	const heightChangeHandler = (event, newHeight) => {
 		setHeight(newHeight);
-		clearTraversed()
+		clearTraversed();
 	};
 
 	const animationSpeedChangeHandler = (event, newValue) => {
@@ -60,9 +67,10 @@ const Traversing = props => {
 	};
 
 	const options = {
-		"Pre-order": () => playTraversingAnimation(getLevelOrderAnimations(height)),
+		"Pre-order": () => () => {},
 		"In-order": () => () => {},
 		"Post-order": () => () => {},
+		"Level-order": () => playTraversingAnimation(getLevelOrderAnimations(height)),
 	};
 
 	let media = window.matchMedia("(max-width: 700px)");
@@ -94,7 +102,7 @@ const Traversing = props => {
 					<Slider
 						valueLabelDisplay
 						onChange={heightChangeHandler}
-						max={6}
+						max={5}
 						min={1}
 						value={height}
 						disabled={traversing}

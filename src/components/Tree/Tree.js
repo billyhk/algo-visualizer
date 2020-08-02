@@ -6,7 +6,45 @@ import Edge from "./Edge/Edge";
 const Tree = props => {
 	const [edges, setEdges] = useState([]);
 	const traversed = useSelector(state => state.traverse.traversed);
+	const style = {
+		display: "grid",
+		gridTemplateRows: `repeat(${props.height + 1}, 1fr)`,
+		height: "100%",
+		position: "relative",
+	};
 
+	const levelStyle = {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "space-evenly",
+		textalign: "center",
+	};
+
+	const tree = [];
+	let capacity = 1;
+	let nodeIndex = 0;
+	const size = 50 / props.height
+	for (let i = 0; i < props.height + 1; i++) {
+		let currentLevel = [];
+		for (let j = 0; j < capacity; j++) {
+			currentLevel.push(
+				<Node
+					size={size}
+					nodeId={nodeIndex}
+					key={nodeIndex}
+					visited={traversed[nodeIndex]}
+				/>
+			);
+			nodeIndex++;
+		}
+		tree.push(
+			<div style={levelStyle} key={capacity}>
+				{currentLevel}
+			</div>
+		);
+		capacity *= 2;
+	}
+	
 	useEffect(() => {
 		window.addEventListener("resize", createEdges);
 		createEdges();
@@ -44,42 +82,7 @@ const Tree = props => {
 		setEdges(edges);
 	};
 
-	const style = {
-		display: "grid",
-		gridTemplateRows: `repeat(${props.height + 1}, 1fr)`,
-		height: "100%",
-		position: "relative",
-	};
-
-	const levelStyle = {
-		display: "flex",
-		alignItems: "center",
-		justifyContent: "space-evenly",
-		textalign: "center",
-	};
-
-	const tree = [];
-	let capacity = 1;
-	let nodeIndex = 0;
-	for (let i = 0; i < props.height + 1; i++) {
-		let currentLevel = [];
-		for (let j = 0; j < capacity; j++) {
-			currentLevel.push(
-				<Node
-					nodeId={nodeIndex}
-					key={nodeIndex}
-					fill={traversed[nodeIndex] ? "#EE4266" : "#05668d"}
-				/>
-			);
-			nodeIndex++;
-		}
-		tree.push(
-			<div style={levelStyle} key={capacity}>
-				{currentLevel}
-			</div>
-		);
-		capacity *= 2;
-	}
+	
 
 	return (
 		<div style={style} id="tree">

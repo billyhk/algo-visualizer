@@ -27,19 +27,19 @@ export const playPathFindingAnimation = animations => {
 				let visitedTimer = setTimeout(() => {
 					dispatch(addVisited([x, y]));
 					clearTimeout(visitedTimer);
-				}, 800 + animationSpeed * i);
+				}, 800 + animationSpeed * 1.5 * i);
 			}
 			if (type === "path") {
 				let pathTimer = setTimeout(() => {
 					dispatch(addPath([x, y]));
 					clearTimeout(pathTimer);
-				}, 1800 + animationSpeed * i);
+				}, 1800 + animationSpeed * 1.5 * i);
 			}
 		}
 		let endFindingTimer = setTimeout(() => {
 			dispatch(setFinding(false));
 			clearTimeout(endFindingTimer);
-		}, 1800 + animationSpeed * animations.length);
+		}, 1800 + animationSpeed * 1.5 *  animations.length);
 	};
 };
 
