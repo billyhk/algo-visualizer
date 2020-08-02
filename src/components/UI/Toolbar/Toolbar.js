@@ -1,8 +1,6 @@
 import React from "react";
 import classes from "./Toolbar.module.css";
 import { NavLink, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import * as actions from "../../../store/actions";
 
 const Toolbar = props => {
 	return (
@@ -47,10 +45,10 @@ const Toolbar = props => {
 				</NavLink>
 				<NavLink
 					className={classes.Link}
-					to="/something"
+					to="/traversing"
 					activeStyle={{ borderBottom: ".3rem solid #EE4266" }}
 				>
-					Something
+					Traversing
 				</NavLink>
 			</div>
 		</nav>

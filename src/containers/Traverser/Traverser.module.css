@@ -1,0 +1,44 @@
+.Traverser {
+	display: grid;
+	grid-template-columns: 1fr 2.2fr;
+	height: 87.5vh;
+}
+
+.ControlsContainer {
+	grid-column: 1 / 2;
+	grid-row: 1 / 2;
+	box-sizing: border-box;
+	padding: 7rem;
+	color: #c0c0c0
+}
+
+.Tree {
+	height: 100%;	
+}
+.TreeContainer {
+	padding: 9rem;
+}
+
+.SliderTitle {
+	margin: 3rem 1rem 1rem;
+}
+
+.About {
+	margin-top: 3rem;
+	line-height: 1.7;
+}
+
+@media only screen and (max-width: 1000px) {
+	.Traverser {
+		display: block;
+	}
+
+	.TreeContainer {
+		height: 40rem;
+		padding: 2rem 4rem;
+	}
+
+	.ControlsContainer {
+		padding: 2rem;
+	}
+}
