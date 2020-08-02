@@ -23,7 +23,8 @@ const Tree = props => {
 	const tree = [];
 	let capacity = 1;
 	let nodeIndex = 0;
-	const size = 50 / props.height
+	let media = window.matchMedia("(max-width: 410px)");
+	const size = (media.matches ? 35 : 50) / props.height
 	for (let i = 0; i < props.height + 1; i++) {
 		let currentLevel = [];
 		for (let j = 0; j < capacity; j++) {

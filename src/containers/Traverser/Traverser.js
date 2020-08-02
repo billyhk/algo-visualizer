@@ -4,7 +4,12 @@ import classes from "./Traverser.module.css";
 import { Paper, Button, Slider } from "@material-ui/core";
 import Selection from "../../components/UI/Selection/Selection";
 import * as actions from "../../store/actions";
-import { getLevelOrderAnimations } from "../../algorithms/traversing";
+import {
+	getLevelOrderAnimations,
+	getInOrderAnimations,
+	getPostOrderAnimations,
+	getPreOrderAnimations,
+} from "../../algorithms/traversing";
 import { useDispatch, useSelector } from "react-redux";
 
 const descriptions = [
@@ -67,9 +72,9 @@ const Traversing = props => {
 	};
 
 	const options = {
-		"Pre-order": () => () => {},
-		"In-order": () => () => {},
-		"Post-order": () => () => {},
+		"Pre-order": () => playTraversingAnimation(getPreOrderAnimations(height)),
+		"In-order": () => playTraversingAnimation(getInOrderAnimations(height)),
+		"Post-order": () => playTraversingAnimation(getPostOrderAnimations(height)),
 		"Level-order": () => playTraversingAnimation(getLevelOrderAnimations(height)),
 	};
 
