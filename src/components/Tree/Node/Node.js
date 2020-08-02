@@ -6,16 +6,16 @@ const Node = props => {
 		width: "2rem",
 		height: "2rem",
       backgroundColor: "#fafafa",
-      border: ".2rem solid #05668d",
+      border: `.4rem solid ${props.fill}`,
 		borderRadius: "1000px",
       display: "flex",
       justifyContent: "center",
-      alignItems: "center"
+		alignItems: "center",
+		transition: "all .2s ease"
 	};
 
-
 	return (
-		<div style={style} id={props.nodeId} />
+		<div style={style} id={`node${props.nodeId}`} />
 	);
 };
 

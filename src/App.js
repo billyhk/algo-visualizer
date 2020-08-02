@@ -13,7 +13,7 @@ const theme = createMuiTheme({
 		primary: {
 			main: '#05668d',
 			light: '#c3e5f3'
-		}
+		},
 	},
 	typography: {
 		fontFamily: [ 'Work Sans' ].join(','), 

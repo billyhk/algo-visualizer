@@ -19,3 +19,11 @@ export {
 	clearVisitedandPath,
 	setPathSpeed
 } from './pathFindingActions'
+
+export {
+	setHeight,
+	setTraverseSpeed,
+	stopTraversingAnimation,
+	playTraversingAnimation,
+	clearTraversed
+} from './traversingActions'

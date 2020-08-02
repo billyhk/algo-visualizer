@@ -5,12 +5,13 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import sorterReducer from "./store/reducers/sorterReducer";
 import pathFindingReducer from "./store/reducers/pathFindingReducer";
+import traversingReducer from "./store/reducers/traversingReducer";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { BrowserRouter } from "react-router-dom";
 
-const rootReducer = combineReducers({ sort: sorterReducer, path: pathFindingReducer });
+const rootReducer = combineReducers({ sort: sorterReducer, path: pathFindingReducer, traverse: traversingReducer });
 
 const composeEnhancers =
 	process.env.NODE_ENV === "development"

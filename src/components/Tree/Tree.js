@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Node from "./Node/Node";
 import Edge from "./Edge/Edge";
 
 const Tree = props => {
 	const [edges, setEdges] = useState([]);
+	const traversed = useSelector(state => state.traverse.traversed);
+
 	useEffect(() => {
-      window.addEventListener("resize", createEdges);
-      createEdges()
-	}, []);
+		window.addEventListener("resize", createEdges);
+		createEdges();
+		return () => {
+			window.removeEventListener("resize", createEdges);
+		};
+	}, [props.height]);
 
 	const createEdges = () => {
 		const tree = document.getElementById("tree");
@@ -58,7 +64,13 @@ const Tree = props => {
 	for (let i = 0; i < props.height + 1; i++) {
 		let currentLevel = [];
 		for (let j = 0; j < capacity; j++) {
-			currentLevel.push(<Node nodeId={`node${nodeIndex}`} key={nodeIndex} />);
+			currentLevel.push(
+				<Node
+					nodeId={nodeIndex}
+					key={nodeIndex}
+					fill={traversed[nodeIndex] ? "#EE4266" : "#05668d"}
+				/>
+			);
 			nodeIndex++;
 		}
 		tree.push(
