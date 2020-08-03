@@ -26,8 +26,8 @@ const descriptions = [
 	<p>
 		<span style={{ fontWeight: 600 }}>Depth first search</span> is a traversing algorithm which
 		uses the idea of backtracking. It explores all the nodes by going forward if possible or uses
-		backtracking. Unlike DFS, it does not guarantee the shortest path, but rather if such a path
-		even exist
+		backtracking. Unlike BFS, it does not guarantee the shortest path, but rather if such a path
+		even exist.
 	</p>,
 ];
 

@@ -14,26 +14,24 @@ import { useDispatch, useSelector } from "react-redux";
 
 const descriptions = [
 	<p>
-		The <span style={{ fontWeight: "600" }}>A* search</span> algorithm introduces a heuristic into
-		a regular graph-searching algorithm, essentially planning ahead at each step so a more optimal
-		decision is made. This algorithm guarantees the shortest path possible.
+		<span style={{ fontWeight: "600" }}>Pre-order traversal</span> visits all nodes of a tree by
+		processing the root, then recursively processing all subtrees. Equivalent to a depth-first
+		search from the root.
 	</p>,
 	<p>
-		<span style={{ fontWeight: "600" }}>Breadth first search</span> is a traversing algorithm
-		which starts from a selected node and continues to traverse the graph layerwise thus exploring
-		the neighbouring nodes. This algorithm guarantees the shortest path possible.
+		An <span style={{ fontWeight: "600" }}>in-order traversal</span> first visits the left child
+		(including its entire subtree), then visits the node, and finally visits the right child
+		(including its entire subtree).
 	</p>,
 	<p>
-		<span style={{ fontWeight: 600 }}>Depth first search</span> is a traversing algorithm which
-		uses the idea of backtracking. It explores all the nodes by going forward if possible or uses
-		backtracking. Unlike DFS, it does not guarantee the shortest path, but rather if such a path
-		even exist
+		A <span style={{ fontWeight: "600" }}>post-order traversal</span> first visits the left child
+		(including its entire subtree), then the right child (including its entire subtree), and
+		finally visits the node.
 	</p>,
 	<p>
-		<span style={{ fontWeight: 600 }}>Depth first search</span> is a traversing algorithm which
-		uses the idea of backtracking. It explores all the nodes by going forward if possible or uses
-		backtracking. Unlike DFS, it does not guarantee the shortest path, but rather if such a path
-		even exist
+		<span style={{ fontWeight: 600 }}>Level-order traversal</span> processes all nodes of a tree by
+		depth: first the root, then the children of the root, etc. Equivalent to a breadth-first
+		search from the root.
 	</p>,
 ];
 

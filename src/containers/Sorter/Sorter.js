@@ -15,7 +15,7 @@ import {
 const descriptions = [
 	<p>
 		<span style={{ fontWeight: "600" }}>Bubble sort</span> is a simple sorting algorithm that
-		repeatedly steps through the list, compares adjacent elements and swaps them if they are in
+		repeatedly steps through the list, compares adjacent elements, and swaps them if they are in
 		the wrong order.
 	</p>,
 	<p>
@@ -25,10 +25,9 @@ const descriptions = [
 
 	<p>
 		Like quick sort, <span style={{ fontWeight: 600 }}>merge sort</span> is a Divide and Conquer
-		algorithm. It divides the input array in two halves, calls itself for the two halves, and then
+		algorithm. It divides the input array into two halves, calls itself for the two halves, and then
 		merges the two sorted halves.
 	</p>,
-
 	<p>
 		<span style={{ fontWeight: 600 }}>Heap sort</span> is a comparison based sorting technique
 		based on a Binary Heap. It finds the maximum element and places it at the end of the array. The same
