@@ -68,7 +68,7 @@ export function getAstarAnimations(start, target, walls, width, height) {
 	start.f = start.g = start.h = 0
 	target.f = target.g = target.h = 0
 	openList.push(start)
-	
+	const p = .01;
 	while (openList.length > 0) {
 		let node = lowestf(openList)
 		visited[node] = true;
@@ -79,6 +79,7 @@ export function getAstarAnimations(start, target, walls, width, height) {
 		}
 
 		let neighbors = getPossibleNeighbors(node, walls, width, height);
+		shuffle(neighbors)
 		
 		for (let i = 0; i < neighbors.length; i++) {
 
@@ -89,6 +90,7 @@ export function getAstarAnimations(start, target, walls, width, height) {
 			
 			next.g = node.g + 1
 			next.h = heuristic(next, target)
+			next.h *= (p + 1.0)
 			next.f = next.g + next.h
 
 			let notBest = false
@@ -120,15 +122,6 @@ function lowestf(list) {
 	}
 	let node = list.splice(low, 1)
 	return node[0]
-}
-
-function nodeInList(list, node) {
-	for (let i = 0; i< list.length; i++) {
-		if (nodesAreEqual(list[i], node)) {
-			return true
-		}
-	}
-	return false
 }
 
 function heuristic(node1, node2) {
