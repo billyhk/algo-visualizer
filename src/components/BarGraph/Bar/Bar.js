@@ -15,7 +15,7 @@ const Bar = props => {
 	const barStyle = {
 		backgroundImage: `linear-gradient(to bottom, ${props.fill}, 90%, white)`,
 		height: "100%",
-		margin: "0 10%",
+		margin: "0 12%",
 		borderTop: `2px solid ${props.fill === '#EE4266' ? '#EE4266' : '#05668d'}`
 
 	};
